@@ -1,0 +1,53 @@
+>EFLAGS
+bit	種類		name	
+
+0	status		Carry Flag
+1			reserved		0
+2	status		Parity Flag		
+3			reserved		1
+4	status		Auxiliary Carry Flag
+5			reserved		0
+6	status		Zero Flag
+7	status		Sign Flag
+8	system		Trap Flag
+9	system		Interrupt Enable Flag
+10	control		Direction Flag
+11	status		Overflow Flag
+12/13	system		I/O Privilege Level
+14	system		Nested Task Flag
+15			reserved	0
+16	system		Resume Flag
+17	system		Virtual-8086 Mode
+18	system		Alignment Check
+19	system		Virtual Interrupt Flag
+20	system		Virtual Interrupt Pending
+21	system		Identification Flag
+22 ~ 31		reserved	0
+
+
+>Contorol Register
+CR0 ~ CR4
+
+CR0
+bit	name
+
+0	Protect Enable
+1	Monitor Coprocesser
+2	Emulation
+3	Task Switch
+4	Extension Type
+5	Numerial Error
+6 - 15	reserved
+16	Write Protect
+17	reserved
+18	Alignment Mask
+19 - 28	reserved
+29	Not Write through
+30	Cash Disable
+31	Pasing
+
+CR1 = all reserved
+
+CR2 = pase fault riniar addr
+
+

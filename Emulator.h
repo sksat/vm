@@ -22,6 +22,7 @@ typedef union {
 
 #define EAX	reg[0].reg32
 
+
 #define FLAGS	eflags.reg16
 #define EFLAGS	eflags.reg32
 #define IP	eip.reg16

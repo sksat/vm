@@ -4,13 +4,14 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define DEFAULT_BIT_MODE	32//16
-#define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//1MB
-#define REGISTERS_COUNT		8
+#define DEFAULT_BIT_MODE	32//16		//デフォルトの起動時のビット。本来は16。
+#define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
+#define REGISTERS_COUNT		8		//レジスタの本数(16/32bit)
 
-extern const char* registers_name16[];
-extern const char* registers_name32[];
+extern const char* registers_name16[];		//16bitレジスタの名前
+extern const char* registers_name32[];		//32bitレジスタの名前
 
+//32bitレジスタ型
 typedef union {
 	uint32_t reg32;
 	uint16_t reg16;
@@ -20,6 +21,7 @@ typedef union {
 	};
 } Register;	// 32bit register
 
+//16bitレジスタに簡単にアクセスするためのdefine
 #define  AX	reg[0].reg16
 #define  CX	reg[1].reg16
 #define  DX	reg[2].reg16
@@ -29,6 +31,7 @@ typedef union {
 #define  SI	reg[6].reg16
 #define  DI	reg[7].reg16
 
+//32bitレジスタに簡単にアクセスするためのdefine
 #define EAX	reg[0].reg32
 #define ECX	reg[1].reg32
 #define EDX	reg[2].reg32
@@ -38,11 +41,13 @@ typedef union {
 #define ESI	reg[6].reg32
 #define EDI	reg[7].reg32
 
+//特殊なレジスタに簡単にアクセスするためのdefine
 #define FLAGS	eflags.reg16
 #define EFLAGS	eflags.reg32
 #define IP	eip.reg16
 #define EIP	eip.reg32
 
+//エミュレータクラス
 class Emulator{
 private:
 	int BitMode;

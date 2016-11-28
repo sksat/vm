@@ -20,8 +20,23 @@ typedef union {
 	};
 } Register;	// 32bit register
 
-#define EAX	reg[0].reg32
+#define  AX	reg[0].reg16
+#define  CX	reg[1].reg16
+#define  DX	reg[2].reg16
+#define  BX	reg[3].reg16
+#define  SP	reg[4].reg16
+#define  BP	reg[5].reg16
+#define  SI	reg[6].reg16
+#define  DI	reg[7].reg16
 
+#define EAX	reg[0].reg32
+#define ECX	reg[1].reg32
+#define EDX	reg[2].reg32
+#define EBX	reg[3].reg32
+#define ESP	reg[4].reg32
+#define EBP	reg[5].reg32
+#define ESI	reg[6].reg32
+#define EDI	reg[7].reg32
 
 #define FLAGS	eflags.reg16
 #define EFLAGS	eflags.reg32

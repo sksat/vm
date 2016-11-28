@@ -9,7 +9,8 @@ namespace instruction32{
 void mov_r8_imm8(Emulator *emu){
 	uint8_t reg = emu->GetCode8(0) - 0xB0;
 	emu->reg[reg].reg32 = emu->GetCode8(1);
-	emu->EIP += 2;	std::cout<<"a";
+	emu->EIP += 2;
+//	std::cout<<"a";
 }
 
 void mov_r32_imm32(Emulator *emu){

@@ -48,6 +48,6 @@ bit	name
 
 CR1 = all reserved
 
-CR2 = pase fault riniar addr
+CR2 = pase fault rinear addr
 
 

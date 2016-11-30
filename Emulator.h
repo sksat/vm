@@ -70,13 +70,13 @@ public:				// member funcs
 	bool IsProtected();
 	size_t GetMemSize(){	return memory_size;	}
 	
-	void LoadBinary(const char* fname, uint32_t addr, int size);
+	void LoadBinary(const char* fname, uint32_t addr, int size);	//バイナリファイルを読み込んでメモリの指定番地に指定サイズだけ転送する
 	
 	uint8_t GetCode8(int index);
 	int8_t  GetSignCode8(int index);
 	uint32_t GetCode32(int index);
 	
-	void DumpRegisters(int bit);
+	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();
 	void DumpMemory(const char *fname, uint8_t addr, uint8_t size);
 	void DumpMemory(const char *fname, uint8_t size){	DumpMemory(fname, 0x00, size);	}
@@ -85,12 +85,12 @@ public:				// member funcs
 
 //instructions
 
-typedef void instruction_func_t(Emulator*);
+typedef void instruction_func_t(Emulator*);	//各命令に対応した関数の型
 
-void InitInstructions16(void);
-void InitInstructions32(void);
+void InitInstructions16(void);			//16bit命令の初期化
+void InitInstructions32(void);			//32bit
 
-extern instruction_func_t* instructions16[256];
-extern instruction_func_t* instructions32[256];
+extern instruction_func_t* instructions16[256];	//16bit命令の関数の配列
+extern instruction_func_t* instructions32[256];	//32bit
 
 #endif //EMULATOR_H_

@@ -47,6 +47,8 @@ typedef union {
 #define IP	eip.reg16
 #define EIP	eip.reg32
 
+//セグメントレジスタ忘れてた
+
 //エミュレータクラス
 class Emulator{
 private:

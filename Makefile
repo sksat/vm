@@ -1,5 +1,6 @@
 TAR	= vm
 OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
+OBJS	+= Gui.o
 OBJS	+= device/Device.a
 
 CFLAGS	= 

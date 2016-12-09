@@ -5,9 +5,11 @@
 
 class Display : public Device {
 private:
+	uint8_t *vram;
 	
+	void init();
 public:
-	
+	Display(uint8_t *vram);
 };
 
 #endif //DISPLAY_H_

@@ -1,6 +1,6 @@
 TAR	= vm
 OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
-OBJS	+= device/Device.o device/Display.o
+OBJS	+= device/Device.a
 
 CFLAGS	= 
 LDFLAGS	= 
@@ -13,6 +13,7 @@ CXX	= g++
 	$(CXX) -o $@ -c $< $(CFLAGS)
 
 default:
+	make -C device
 	make $(TAR)
 
 run:$(TAR)
@@ -29,4 +30,5 @@ full:
 $(TAR):$(OBJS)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
-
+device/Device.a:
+	make -C device

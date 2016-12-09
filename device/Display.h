@@ -1,12 +1,14 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
-class Display{
+#include "Device.h"
+
+class Display : public Device {
 private:
 	
 public:
-	Display();
-	~Display();
+	
 };
 
 #endif //DISPLAY_H_
+

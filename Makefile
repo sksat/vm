@@ -1,5 +1,6 @@
 TAR	= vm
 OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
+OBJS	+= device/Device.o device/Display.o
 
 CFLAGS	= 
 LDFLAGS	= 

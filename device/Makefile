@@ -1,11 +1,13 @@
 TAR	= Device.a
 OBJS	= Device.o Display.o
 
+CFLAGS	= -std=c++11
+
 %.o:%.c
 	gcc -c $<
 
 %.o:%.cpp
-	g++ -c $<
+	g++ -c $< $(CFLAGS)
 
 default:
 	make $(TAR)

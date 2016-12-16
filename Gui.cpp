@@ -22,6 +22,8 @@ void Gui::ThreadProc(){
 
 void Gui::display(){
 	glClear(GL_COLOR_BUFFER_BIT);
+	glRasterPos2f(-1,1);
+//	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, &img);
 	glFlush();
 }
 

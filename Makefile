@@ -3,8 +3,8 @@ OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
 OBJS	+= Gui.o
 OBJS	+= device/Device.a
 
-CFLAGS	= 
-LDFLAGS	= 
+CFLAGS	= -std=c++11
+LDFLAGS	= -lglut -pthread
 RUNFLAGS= test01.bin
 
 CC	= gcc

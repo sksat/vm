@@ -5,10 +5,12 @@
 #include <iostream>
 
 #include "Emulator.h"
+#include "Gui.h"
 
 using namespace std;
 
-Emulator *emu;
+Emulator	*emu;
+Gui		*gui;
 
 int main(int argc, char **argv){
 	
@@ -16,6 +18,7 @@ int main(int argc, char **argv){
 	
 	emu = new Emulator();
 	cout<<"emulator created."<<endl;
+	gui = new Gui();
 	
 //	getchar();
 	
@@ -25,6 +28,7 @@ int main(int argc, char **argv){
 //	emu->EAX = 0xffffffff;
 	
 	//emulation
+	gui->OpenWindow();
 	while(true){
 		int bit		= emu->GetBitMode();
 		uint8_t code	= emu->GetCode8(0);
@@ -64,6 +68,7 @@ int main(int argc, char **argv){
 	
 	delete emu;
 	cout<<"emulator deleted."<<endl;
+	delete gui;
 	return 0;
 }
 

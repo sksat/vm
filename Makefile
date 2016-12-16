@@ -4,7 +4,8 @@ OBJS	+= Gui.o
 OBJS	+= device/Device.a
 
 CFLAGS	= -std=c++11
-LDFLAGS	= -lglut -pthread
+LDFLAGS	= -lglut -lGL
+LDFLAGS += -pthread
 RUNFLAGS= test01.bin
 
 CC	= gcc

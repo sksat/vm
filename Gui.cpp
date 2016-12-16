@@ -35,11 +35,12 @@ Gui::Gui(){
 }
 
 Gui::~Gui(){
-	
+	hThread->join();
+	delete hThread;
 }
 
 void Gui::OpenWindow(){
 	hThread = new thread(&Gui::ThreadProc, this);	//メンバ関数を指定する場合は第２引数=this
 	
-	hThread->join();	//とりあえず終わるまで待つ
+//	hThread->join();	//とりあえず終わるまで待つ
 }

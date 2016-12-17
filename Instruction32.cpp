@@ -20,6 +20,22 @@ void mov_r32_imm32(Emulator *emu){
 	emu->EIP += 5;
 }
 
+void inc_r32(Emulator *emu){
+	uint8_t reg = emu->GetCode8(0) - 0x40;
+	emu->reg[reg].reg32++;
+	emu->EIP++;
+}
+
+void short_jump(Emulator *emu){
+	int8_t diff = emu->GetSignCode8(1);
+	emu->EIP += (diff + 2);
+}
+
+void near_jump(Emulator *emu){
+	int32_t diff = emu->GetSignCode32(1);
+	emu->EIP += (diff + 5);
+}
+
 }
 
 
@@ -36,11 +52,11 @@ void InitInstructions32(void){
 	//func[0x3C]	= cmp_al_imm8;
 	//func[0x3D]	= cmp_eax_imm32;
 	
-	/*
+	
 	for(i=0;i<8;i++){
 		func[0x40 + i]	= inc_r32;
 	}
-	*/
+	
 	
 	/*
 	for(i=0;i<8;i++){
@@ -81,6 +97,19 @@ void InitInstructions32(void){
 	for(i=0;i<8;i++){
 		func[0xB8 + i]	= mov_r32_imm32;
 	}
+	
+	//func[0xC3]	= ret;
+	//func[0xC7]	= mov_rm32_imm32;
+	//func[0xC9]	= leave;
+	
+	//func[0xCD]	= swi;
+	
+	//func[0xE8]	= call_rel32;
+	func[0xE9]	= near_jump;
+	func[0xEB]	= short_jump;
+	//func[0xEC]	= in_al_dx;
+	//func[0xEE]	= out_dx_al;
+	//func[0xFF]	= code_ff;
 }
 
 

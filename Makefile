@@ -4,7 +4,7 @@ OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
 OBJS	+= Gui.o
 OBJS	+= device/Device.a
 
-CFLAGS	= -std=c++11
+CFLAGS	= -std=c++11 -g
 LDFLAGS	= -lglut -lGL
 LDFLAGS += -pthread
 RUNFLAGS= $(BIN)

@@ -79,6 +79,7 @@ public:				// member funcs
 	uint8_t GetCode8(int index);
 	int8_t  GetSignCode8(int index);
 	uint32_t GetCode32(int index);
+	int32_t GetSignCode32(int index);
 	
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();

@@ -66,6 +66,25 @@ uint8_t Emulator::GetCode8(int index){
 	return memory[EIP + index];
 }
 
+int8_t Emulator::GetSignCode8(int index){
+	return (int8_t)GetCode8(index);
+}
+
+uint32_t Emulator::GetCode32(int index){
+	uint32_t ret = 0;
+	
+	//リトルエンディアンでメモリの値を取得
+	for(int i=0; i<4; i++){
+		ret |= GetCode8(index + i) << (i * 8);
+	}
+	
+	return ret;
+}
+
+int32_t Emulator::GetSignCode32(int index){
+	return (int32_t)GetCode32(index);
+}
+
 void Emulator::DumpRegisters(int bit){
 	cout<<"---Dump Registers---"<<endl;
 	

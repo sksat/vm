@@ -23,17 +23,23 @@ void Gui::ThreadProc(){
 void Gui::display(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2f(-1,1);
-//	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, &img);
+	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, disp->Draw());
 	glFlush();
 }
 
 void Gui::init(){
+	disp = NULL;
 	scrnx = DEFAULT_SCRNX;
 	scrny = DEFAULT_SCRNY;
 }
 
 Gui::Gui(){
 	init();
+}
+
+Gui::Gui(Display *disp){
+	init();
+	ChangeDisplay(disp);
 }
 
 Gui::~Gui(){
@@ -46,3 +52,10 @@ void Gui::OpenWindow(){
 	
 //	hThread->join();	//とりあえず終わるまで待つ
 }
+
+void Gui::ChangeDisplay(Display *disp){
+	if(disp == NULL) return;
+	this->disp = disp;	//描画スレッドのほうで不整合が起きるのは今は気にしない
+}
+
+

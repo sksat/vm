@@ -6,11 +6,13 @@
 
 #include "Emulator.h"
 #include "Gui.h"
+#include "device/Device.h"
 
 using namespace std;
 
 Emulator	*emu;
 Gui		*gui;
+Display		*disp;
 
 int main(int argc, char **argv){
 	
@@ -18,7 +20,9 @@ int main(int argc, char **argv){
 	
 	emu = new Emulator();
 	cout<<"emulator created."<<endl;
-	gui = new Gui();
+	
+	disp = new Display(emu->memory + VRAM_ADDR);
+	gui = new Gui(disp);
 	
 //	getchar();
 	
@@ -68,7 +72,9 @@ int main(int argc, char **argv){
 	
 	delete emu;
 	cout<<"emulator deleted."<<endl;
+	
 	delete gui;
+	delete disp;
 	return 0;
 }
 

@@ -3,6 +3,10 @@
 
 #include "../Emulator.h"
 
+#ifndef DEVICE
+	#include "Display.h"
+#endif
+
 class Device {
 private:
 	

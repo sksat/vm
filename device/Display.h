@@ -1,6 +1,8 @@
 #ifndef DISPLAY_H_
 #define DISPLAY_H_
 
+#define DEVICE
+
 #include "Device.h"
 //#include "../Gui.h"
 

@@ -8,6 +8,8 @@
 #define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
 #define REGISTERS_COUNT		8		//レジスタの本数(16/32bit)
 
+#define VRAM_ADDR		0xa0000
+
 extern const char* registers_name16[];		//16bitレジスタの名前
 extern const char* registers_name32[];		//32bitレジスタの名前
 

@@ -20,9 +20,9 @@ char* Display::Draw(){
 	for(unsigned int i = 0; i<scrny; i++){
 		int r = (i * 0xff) / scrny;
 		for(unsigned int j = 0; j<scrnx; j++){
-//			img[index++] = r;
-//			img[index++] = (( j * 0xff) / scrnx);
-//			img[index++] = ~r;
+			img[index++] = r;
+			img[index++] = (( j * 0xff) / scrnx);
+			img[index++] = ~r;
 		}
 	}
 	return img;

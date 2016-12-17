@@ -8,6 +8,15 @@
 #include "Gui.h"
 #include "device/Device.h"
 
+#define DEBUG
+
+#ifdef DEBUG
+#undef DEBUG
+#define DEBUG(m) cout<<m<<endl;
+#else
+#define DEBUG(m)
+#endif
+
 using namespace std;
 
 Emulator	*emu;

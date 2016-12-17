@@ -3,10 +3,6 @@
 
 #include "../Emulator.h"
 
-#ifndef DEVICE
-	#include "Display.h"
-#endif
-
 class Device {
 private:
 	
@@ -15,6 +11,10 @@ public:
 				//あと、ひとつのデバイスで複数ポートあるかもしれないから引数にポートをとる
 	void in8(int port, uint8_t data);
 };
+
+#ifndef DEVICE
+	#include "Display.h"	
+#endif
 
 #endif //DEVICE_H_
 

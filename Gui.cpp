@@ -1,8 +1,19 @@
+#include <iostream>
 #include "Gui.h"
 
 using namespace std;
 
+unsigned char *img;// = new unsigned char[320*200*3];
+
 void Gui::ThreadProc(){
+	img = new unsigned char[scrnx * scrny *3];
+	int index=0;
+	for(int x=0;x<scrnx;x++){
+		for(int y=0;y<scrny;y++){
+			img[scrnx*y+x] = 0xff;
+		}
+	}
+//cout<<"a"<<endl;	
 	int argc;
 	char *argv = new char[1];
 	glutInit(&argc, &argv);		//fake command-line args
@@ -10,27 +21,36 @@ void Gui::ThreadProc(){
 	glutInitDisplayMode(GLUT_RGBA);
 	glutInitWindowSize(scrnx, scrny);
 	
-	glutCreateWindow("display");
+	hMainWin = glutCreateWindow("display");
 	
 //	glutDisplayFunc(display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
 	
-	while(true){	//message loop
+	while(msgflg){	//message loop
+//cout<<"msg loop"<<endl;
 		glutMainLoopEvent();
 		this->display();
+		glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, img);
+		glFlush();
 	}
+
+//	glutDestroyWindow(hMainWin);
+	cout<<"destroy"<<endl;
 }
 
 void Gui::display(){
+//cout<<"d";
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2f(-1,1);
-	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, disp->Draw());
-	glFlush();
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+//	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, img);//disp->Draw());
+//	glFlush();
 }
 
 void Gui::init(){
 	disp = NULL;
 	scrnx = DEFAULT_SCRNX;
 	scrny = DEFAULT_SCRNY;
+	msgflg = true;
 }
 
 Gui::Gui(){
@@ -43,8 +63,10 @@ Gui::Gui(Display *disp){
 }
 
 Gui::~Gui(){
-	hThread->join();
+	msgflg = false;
+	hThread->detach();
 	delete hThread;
+	delete img;
 }
 
 void Gui::OpenWindow(){

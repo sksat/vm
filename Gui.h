@@ -12,7 +12,10 @@
 class Gui{
 private:
 	std::thread *hThread;
+	int hMainWin;
 	Display *disp;
+	
+	bool msgflg;
 	
 	int scrnx, scrny;
 	

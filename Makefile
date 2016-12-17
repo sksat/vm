@@ -28,6 +28,7 @@ run:$(TAR)
 	./$(TAR) $(RUNFLAGS)
 
 clean:
+	make -C device clean
 	rm *.o
 	rm vm
 

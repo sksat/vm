@@ -15,4 +15,8 @@ default:
 $(TAR):$(OBJS)
 	ar rcs $@ $(OBJS)
 
+clean:
+	rm $(TAR)
+	rm $(OBJS)
+
 

@@ -24,7 +24,7 @@ default:
 	make -C device
 	make $(TAR)
 
-run:$(TAR)
+run:$(TAR) $(BIN)
 	./$(TAR) $(RUNFLAGS)
 
 clean:

@@ -5,7 +5,7 @@ OBJS	+= GUI.o
 OBJS	+= device/Device.a
 
 CFLAGS	= -std=c++11 -g
-LDFLAGS	= -lglut -lGL
+LDFLAGS	= -lglut -lGLU -lGL
 LDFLAGS += -pthread
 RUNFLAGS= $(BIN)
 

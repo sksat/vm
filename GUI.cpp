@@ -3,18 +3,34 @@
 
 using namespace std;
 
-unsigned char *img;// = new unsigned char[320*200*3];
+unsigned char *img;
+
+typedef struct{
+	unsigned char red, green, blue;
+}Color;
+
+void boxfill(Color *c, int x0, int y0, int x1, int y1){
+	int x,y, i;
+	for(y=y0;y<=y1;y++){
+		for(x=x0;x<=x1;x++){
+			i = (y*320+x)*3;
+			img[i]	= c->red;
+			img[i+1]	= c->green;
+			img[i+2]	= c->blue;
+		}
+	}
+}
 
 void Gui::ThreadProc(){
 	img = new unsigned char[scrnx * scrny *3];
-	int index=0;
-	for(int x=0;x<scrnx;x++){
-		for(int y=0;y<scrny;y++){
-			img[scrnx*y+x] = 0xff;
-		}
-	}
+	Color c;
+	c.red = 0xff;
+	c.green = 0x00;
+	c.blue = 0x00;
+	boxfill(&c, 20, 20, 150, 100);
+	
 //cout<<"a"<<endl;	
-	int argc;
+	int argc=1;
 	char *argv = new char[1];
 	glutInit(&argc, &argv);		//fake command-line args
 	
@@ -23,27 +39,28 @@ void Gui::ThreadProc(){
 	
 	hMainWin = glutCreateWindow("display");
 	
-//	glutDisplayFunc(display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
+//	gluOrtho2D(0.0, scrnx, 0.0, scrny);
+	glPixelZoom(1,-1);
+	
+	//glutDisplayFunc(a::display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
 	
 	while(msgflg){	//message loop
-//cout<<"msg loop"<<endl;
 		glutMainLoopEvent();
 		this->display();
-		glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, img);
-		glFlush();
 	}
 
-//	glutDestroyWindow(hMainWin);
+	glutDestroyWindow(hMainWin);
 	cout<<"destroy"<<endl;
 }
 
 void Gui::display(){
-//cout<<"d";
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2f(-1,1);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-//	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, img);//disp->Draw());
-//	glFlush();
+//	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, disp->Draw());
+//	glMatrixMode(GL_MODELVIEW);
+	glFlush();
 }
 
 void Gui::init(){

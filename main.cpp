@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "Emulator.h"
-#include "Gui.h"
+#include "GUI.h"
 #include "device/Device.h"
 
 #define DEBUG

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Gui.h"
+#include "GUI.h"
 
 using namespace std;
 

@@ -1,4 +1,13 @@
-     1 00000000                                 
+     1 00000000                                 ; emulator test program
      2 00000000                                 
-     3                                          ORG	0x7c00
-     4 00007C00                                 
+     3 00000000                                 [INSTRSET "i486p"]
+     4 00000000                                 [BITS 32]
+     5 00000000                                 
+     6                                          	ORG	0x7c00
+     7 00007C00                                 
+     8 00007C00                                 entry:
+     9 00007C00 B8 00000000                     	MOV	EAX,0x00
+    10 00007C05 B8 000000FF                     	MOV	EAX,0xff
+    11 00007C0A EB F4                           	JMP	entry
+    12 00007C0C                                 
+    13 00007C0C                                 

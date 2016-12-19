@@ -23,6 +23,15 @@ Emulator	*emu;
 Gui		*gui;
 Display		*disp;
 
+void boxfill(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1){
+	for(int y=y0; y<=y1; y++){
+		for(int x=x0; x<=x1; x++){
+			vram[y * xsize + x] = c;
+		}
+	}
+	return;
+}
+
 int main(int argc, char **argv){
 	
 	//TODO parse args
@@ -39,6 +48,9 @@ int main(int argc, char **argv){
 	
 	emu->EIP = 0x7c00;
 //	emu->EAX = 0xffffffff;
+	
+	//internal boxfill
+	boxfill(emu->memory + VRAM_ADDR, 320, 2, 20, 20, 120, 120);
 	
 	//emulation
 	gui->OpenWindow();

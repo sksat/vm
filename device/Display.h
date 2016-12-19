@@ -12,12 +12,15 @@
 class Display : public Device {
 private:
 //	Gui	*gui;
+	unsigned char palette[0xff * 3];//パレット。256個の色をRGBで保存。
+	
 	uint8_t *vram;
 	char *img;
 	
 	int scrnx, scrny;
 	
 	void init();
+	void init_palette();
 public:	
 	Display(uint8_t *vram);
 	~Display();

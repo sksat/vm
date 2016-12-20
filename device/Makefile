@@ -1,7 +1,7 @@
 TAR	= Device.a
 OBJS	= Device.o Display.o
 
-CFLAGS	= -std=c++11
+CFLAGS	= -std=c++11 -g
 
 %.o:%.c
 	gcc -c $<

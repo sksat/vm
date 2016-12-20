@@ -3,11 +3,16 @@
      3 00000000                                 [INSTRSET "i486p"]
      4 00000000                                 [BITS 32]
      5 00000000                                 
-     6                                          	ORG	0x7c00
-     7 00007C00                                 
-     8 00007C00                                 entry:
-     9 00007C00 B8 00000000                     	MOV	EAX,0x00
-    10 00007C05 B8 000000FF                     	MOV	EAX,0xff
-    11 00007C0A EB F4                           	JMP	entry
-    12 00007C0C                                 
-    13 00007C0C                                 
+     6  = 000A0000                              VRAM	EQU	0xa0000
+     7  = 00000140                              SCRNX	EQU	320
+     8  = 000000C8                              SCRNY	EQU	200
+     9 00000000                                 
+    10 00000000                                 
+    11                                          	ORG	0x7c00
+    12 00007C00                                 
+    13 00007C00                                 entry:
+    14 00007C00 B8 00000000                     	MOV	EAX,0x00
+    15 00007C05 B8 000000FF                     	MOV	EAX,0xff
+    16 00007C0A EB F4                           	JMP	entry
+    17 00007C0C                                 
+    18 00007C0C                                 

@@ -52,8 +52,9 @@ int main(int argc, char **argv){
 	//internal boxfill
 	boxfill(emu->memory + VRAM_ADDR, 320, 2, 20, 20, 120, 120);
 	
-	//emulation
 	gui->OpenWindow();
+	
+	//emulation
 	while(true){
 		int bit		= emu->GetBitMode();
 		uint8_t code	= emu->GetCode8(0);

@@ -10,6 +10,9 @@
 
 #define VRAM_ADDR		0xa0000
 
+#define LOW			0
+#define HIGH			1
+
 extern const char* registers_name16[];		//16bitレジスタの名前
 extern const char* registers_name32[];		//32bitレジスタの名前
 
@@ -80,6 +83,9 @@ public:				// member funcs
 	int8_t  GetSignCode8(int index);
 	uint32_t GetCode32(int index);
 	int32_t GetSignCode32(int index);
+	
+	uint8_t GetRegister8(int index);
+	uint32_t GetRegister32(int index);
 	
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();

@@ -85,6 +85,18 @@ int32_t Emulator::GetSignCode32(int index){
 	return (int32_t)GetCode32(index);
 }
 
+uint8_t Emulator::GetRegister8(int index){
+	if(index < 4){
+		return reg[index].high8;
+	}else{
+		return reg[index - 4].low8;
+	}
+}
+
+uint32_t Emulator::GetRegister32(int index){
+	return reg[index].reg32;
+}
+
 void Emulator::DumpRegisters(int bit){
 	cout<<"---Dump Registers---"<<endl;
 	

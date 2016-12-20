@@ -21,7 +21,7 @@ void boxfill(Color *c, int x0, int y0, int x1, int y1){
 	}
 }
 
-void Gui::ThreadProc(){
+void GUI::ThreadProc(){
 	img = new unsigned char[scrnx * scrny *3];
 	Color c;
 	c.red = 0xff;
@@ -53,7 +53,7 @@ void Gui::ThreadProc(){
 	cout<<"destroy"<<endl;
 }
 
-void Gui::display(){
+void GUI::display(){
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2f(-1,1);
@@ -63,36 +63,36 @@ void Gui::display(){
 	glFlush();
 }
 
-void Gui::init(){
+void GUI::init(){
 	disp = NULL;
 	scrnx = DEFAULT_SCRNX;
 	scrny = DEFAULT_SCRNY;
 	msgflg = true;
 }
 
-Gui::Gui(){
+GUI::GUI(){
 	init();
 }
 
-Gui::Gui(Display *disp){
+GUI::GUI(Display *disp){
 	init();
 	ChangeDisplay(disp);
 }
 
-Gui::~Gui(){
+GUI::~GUI(){
 	msgflg = false;
 	hThread->detach();
 	delete hThread;
 	delete img;
 }
 
-void Gui::OpenWindow(){
-	hThread = new thread(&Gui::ThreadProc, this);	//メンバ関数を指定する場合は第２引数=this
+void GUI::OpenWindow(){
+	hThread = new thread(&GUI::ThreadProc, this);	//メンバ関数を指定する場合は第２引数=this
 	
 //	hThread->join();	//とりあえず終わるまで待つ
 }
 
-void Gui::ChangeDisplay(Display *disp){
+void GUI::ChangeDisplay(Display *disp){
 	if(disp == NULL) return;
 	this->disp = disp;	//描画スレッドのほうで不整合が起きるのは今は気にしない
 }

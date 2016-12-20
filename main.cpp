@@ -15,7 +15,7 @@
 using namespace std;
 
 Emulator	*emu;
-Gui		*gui;
+GUI		*gui;
 Display		*disp;
 
 void boxfill(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1){
@@ -35,7 +35,7 @@ int main(int argc, char **argv){
 	cout<<"emulator created."<<endl;
 	
 	disp = new Display(emu->memory + VRAM_ADDR);
-	gui = new Gui(disp);
+	gui = new GUI(disp);
 	
 //	getchar();
 	

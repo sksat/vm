@@ -9,7 +9,7 @@
 #define DEFAULT_SCRNX	320
 #define DEFAULT_SCRNY	200
 
-class Gui{
+class GUI{
 private:
 	std::thread *hThread;
 	int hMainWin;
@@ -23,9 +23,9 @@ private:
 	void ThreadProc();
 	void display();
 public:
-	Gui();
-	Gui(Display *disp);
-	~Gui();
+	GUI();
+	GUI(Display *disp);
+	~GUI();
 	
 	void OpenWindow();
 	void ChangeDisplay(Display *disp);

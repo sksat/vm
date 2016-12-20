@@ -10,12 +10,7 @@
 
 #define DEBUG
 
-#ifdef DEBUG
-#undef DEBUG
-#define DEBUG(m) cout<<m<<endl;
-#else
-#define DEBUG(m)
-#endif
+#define INTERNAL_BOXFILL
 
 using namespace std;
 
@@ -50,7 +45,24 @@ int main(int argc, char **argv){
 //	emu->EAX = 0xffffffff;
 	
 	//internal boxfill
-	boxfill(emu->memory + VRAM_ADDR, 320, 2, 20, 20, 120, 120);
+#ifdef INTERNAL_BOXFILL
+	boxfill(emu->memory + VRAM_ADDR, 320, 14, 0,      0, 320-1, 200-29);
+	boxfill(emu->memory + VRAM_ADDR, 320,  8, 0, 200-28, 320-1, 200-28);
+	boxfill(emu->memory + VRAM_ADDR, 320,  7, 0, 200-27, 320-1, 200-27);
+	boxfill(emu->memory + VRAM_ADDR, 320,  8, 0, 200-26, 320-1, 200- 1);
+	
+	boxfill(emu->memory + VRAM_ADDR, 320,  7,  3, 200-24, 59, 200-24);
+	boxfill(emu->memory + VRAM_ADDR, 320,  7,  2, 200-14,  2, 200- 4);
+	boxfill(emu->memory + VRAM_ADDR, 320, 15,  3, 200- 4, 59, 200- 4);
+	boxfill(emu->memory + VRAM_ADDR, 320, 15, 59, 200-23, 59, 200- 5);
+	boxfill(emu->memory + VRAM_ADDR, 320,  0,  2, 200- 3, 59, 200- 3);
+	boxfill(emu->memory + VRAM_ADDR, 320,  0, 60, 200-24, 60, 200- 3);
+	
+	boxfill(emu->memory + VRAM_ADDR, 320, 15, 320-47, 200-24, 320- 4, 200-24);
+	boxfill(emu->memory + VRAM_ADDR, 320, 15, 320-47, 200-23, 320-47, 200- 4);
+	boxfill(emu->memory + VRAM_ADDR, 320,  7, 320-47, 200- 3, 320- 4, 200- 3);
+	boxfill(emu->memory + VRAM_ADDR, 320,  7, 320- 3, 200-24, 320- 3, 200- 3);
+#endif //internal boxfill
 	
 	gui->OpenWindow();
 	

@@ -3,10 +3,10 @@
 
 using namespace std;
 
-unsigned char *img;
+//typedef void (GUI::*GUIFunc_i)(int);
 
 void GUI::ThreadProc(){
-	img = new unsigned char[scrnx * scrny *3];
+//	img = new unsigned char[scrnx * scrny *3];
 		
 //cout<<"a"<<endl;	
 	int argc=1;
@@ -22,6 +22,8 @@ void GUI::ThreadProc(){
 	glPixelZoom(1,-1);
 	
 	//glutDisplayFunc(a::display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
+//	GUIFunc_i f = timer;
+//	glutTimerFunc(500, f, 0);
 	
 	while(msgflg){	//message loop
 		glutMainLoopEvent();
@@ -33,17 +35,30 @@ void GUI::ThreadProc(){
 }
 
 void GUI::display(){
+	if(disp != NULL){
+		disp->Draw();
+	}
+	
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2f(-1,1);
 //	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, disp->Draw());
+	if(img != NULL){
+		glDrawPixels(scrnx, scrny, GL_RGB, GL_UNSIGNED_BYTE, img);
+	}
 //	glMatrixMode(GL_MODELVIEW);
 	glFlush();
 }
 
+/*
+void GUI::timer(int val){
+	glutPostRedisplay();
+}
+*/
+
 void GUI::init(){
 	disp = NULL;
+	img = NULL;
 	scrnx = DEFAULT_SCRNX;
 	scrny = DEFAULT_SCRNY;
 	msgflg = true;
@@ -53,16 +68,23 @@ GUI::GUI(){
 	init();
 }
 
+GUI::GUI(unsigned char *img){
+	init();
+	ChangeImgAddr(img);
+}
+
+
 GUI::GUI(Display *disp){
 	init();
 	ChangeDisplay(disp);
 }
 
+
 GUI::~GUI(){
 	msgflg = false;
 	hThread->detach();
 	delete hThread;
-	delete img;
+//	delete img;
 }
 
 void GUI::OpenWindow(){
@@ -71,9 +93,18 @@ void GUI::OpenWindow(){
 //	hThread->join();	//とりあえず終わるまで待つ
 }
 
+void GUI::ChangeImgAddr(unsigned char *img){
+	if(img == NULL)
+		return;
+	this->img = img;
+}
+
+
 void GUI::ChangeDisplay(Display *disp){
 	if(disp == NULL) return;
 	this->disp = disp;	//描画スレッドのほうで不整合が起きるのは今は気にしない
+	ChangeImgAddr(disp->img);
 }
+
 
 

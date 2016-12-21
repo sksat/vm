@@ -14,6 +14,7 @@ private:
 	std::thread *hThread;
 	int hMainWin;
 	Display *disp;
+	unsigned char *img;
 	
 	bool msgflg;
 	
@@ -22,13 +23,16 @@ private:
 	void init();
 	void ThreadProc();
 	void display();
+//	void timer(int val);
 public:
 	GUI();
+	GUI(unsigned char *img);
 	GUI(Display *disp);
 	~GUI();
 	
 	void OpenWindow();
 	void ChangeDisplay(Display *disp);
+	void ChangeImgAddr(unsigned char *img);
 };
 
 #endif //GUI_H_

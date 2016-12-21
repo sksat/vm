@@ -5,6 +5,10 @@ using namespace std;
 
 //typedef void (GUI::*GUIFunc_i)(int);
 
+void test(int val){
+	cout<<"test "<<val<<endl;
+}
+
 void GUI::ThreadProc(){
 //	img = new unsigned char[scrnx * scrny *3];
 		
@@ -24,6 +28,10 @@ void GUI::ThreadProc(){
 	//glutDisplayFunc(a::display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
 //	GUIFunc_i f = timer;
 //	glutTimerFunc(500, f, 0);
+	
+	int menu = glutCreateMenu(test);
+	glutAddMenuEntry("menu1", 1);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
 	
 	while(msgflg){	//message loop
 		glutMainLoopEvent();

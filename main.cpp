@@ -11,6 +11,8 @@
 #define DEBUG
 
 #define INTERNAL_BOXFILL
+//#define TEST_VRAM
+#define HARIBOTE_UI
 
 using namespace std;
 
@@ -46,6 +48,16 @@ int main(int argc, char **argv){
 	
 	//internal boxfill
 #ifdef INTERNAL_BOXFILL
+
+#ifdef TEST_VRAM
+	for(int i=VRAM_ADDR; i<=0xaffff; i++){
+		char *p;
+		p = (char*)(i + emu->memory);
+		*p = i & 0x0f;
+	}
+#endif
+
+#ifdef HARIBOTE_UI
 	boxfill(emu->memory + VRAM_ADDR, 320, 14, 0,      0, 320-1, 200-29);
 	boxfill(emu->memory + VRAM_ADDR, 320,  8, 0, 200-28, 320-1, 200-28);
 	boxfill(emu->memory + VRAM_ADDR, 320,  7, 0, 200-27, 320-1, 200-27);
@@ -62,6 +74,8 @@ int main(int argc, char **argv){
 	boxfill(emu->memory + VRAM_ADDR, 320, 15, 320-47, 200-23, 320-47, 200- 4);
 	boxfill(emu->memory + VRAM_ADDR, 320,  7, 320-47, 200- 3, 320- 4, 200- 3);
 	boxfill(emu->memory + VRAM_ADDR, 320,  7, 320- 3, 200-24, 320- 3, 200- 3);
+#endif //haribote-ui
+
 #endif //internal boxfill
 	
 	gui->OpenWindow();

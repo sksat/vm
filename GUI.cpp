@@ -36,7 +36,7 @@ void GUI::ThreadProc(){
 
 void GUI::display(){
 	if(disp != NULL){
-		disp->Draw();
+		img = disp->Draw();
 	}
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0);

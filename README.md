@@ -11,4 +11,6 @@ GUI部分はOpenGLで作っています(OpenGLでマウスを吸い込む方法�
 G++ 5.4.0で確認しています。
 
 ###Information
-[自作OS Advent Calendar 2016](www.adventar.org/calendars/1666)に記事を書きます。
+[自作OS Advent Calendar 2016](www.adventar.org/calendars/1666)に記事を書きました(sksat.hatenablog.com/entry/2016/12/21/231342)。
+
+

@@ -5,30 +5,9 @@ using namespace std;
 
 unsigned char *img;
 
-typedef struct{
-	unsigned char red, green, blue;
-}Color;
-
-void boxfill(Color *c, int x0, int y0, int x1, int y1){
-	int x,y, i;
-	for(y=y0;y<=y1;y++){
-		for(x=x0;x<=x1;x++){
-			i = (y*320+x)*3;
-			img[i]	= c->red;
-			img[i+1]	= c->green;
-			img[i+2]	= c->blue;
-		}
-	}
-}
-
 void GUI::ThreadProc(){
 	img = new unsigned char[scrnx * scrny *3];
-	Color c;
-	c.red = 0xff;
-	c.green = 0x00;
-	c.blue = 0x00;
-	boxfill(&c, 20, 20, 150, 100);
-	
+		
 //cout<<"a"<<endl;	
 	int argc=1;
 	char *argv = new char[1];

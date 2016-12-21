@@ -15,7 +15,7 @@ private:
 	unsigned char palette[0xff * 3];//パレット。256個の色をRGBで保存。
 	
 	uint8_t *vram;
-	char *img;
+	unsigned char *img;
 	
 	int scrnx, scrny;
 	
@@ -25,7 +25,7 @@ public:
 	Display(uint8_t *vram);
 	~Display();
 	
-	char* Draw();
+	unsigned char* Draw();
 };
 
 #endif //DISPLAY_H_

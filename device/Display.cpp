@@ -3,7 +3,7 @@
 void Display::init(){
 	scrnx = DEFAULT_SCRNX;
 	scrny = DEFAULT_SCRNY;
-	img = new char[scrnx * scrny * 3];	//横*縦*RGB
+	img = new unsigned char[scrnx * scrny * 3];	//横*縦*RGB
 	
 	init_palette();
 }
@@ -42,7 +42,7 @@ void Display::init_palette(){
 	}
 }
 
-char* Display::Draw(){
+unsigned char* Display::Draw(){
 	/*
 	//テスト描画
 	unsigned int index=0;

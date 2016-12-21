@@ -12,7 +12,8 @@ SCRNY	EQU	200
 
 entry:
 	MOV	EAX,0x00
-	INC	EAX
+;	INC	EAX
+;	CMP	EAX,0xff
+;	JE	entry
 	JMP	entry
-
 

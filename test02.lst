@@ -12,7 +12,8 @@
     12 00007C00                                 
     13 00007C00                                 entry:
     14 00007C00 B8 00000000                     	MOV	EAX,0x00
-    15 00007C05 40                              	INC	EAX
-    16 00007C06 EB F8                           	JMP	entry
-    17 00007C08                                 
-    18 00007C08                                 
+    15 00007C05                                 ;	INC	EAX
+    16 00007C05                                 ;	CMP	EAX,0xff
+    17 00007C05                                 ;	JE	entry
+    18 00007C05 EB F9                           	JMP	entry
+    19 00007C07                                 

@@ -2,6 +2,7 @@ TAR	= vm
 BIN	= test02.bin
 OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
 OBJS	+= GUI.o
+OBJS	+= sksatlib/Bitmap.o
 OBJS	+= device/Device.a
 
 CFLAGS	= -std=c++11 -g
@@ -21,10 +22,12 @@ CXX	= g++
 
 default:
 	make $(BIN)
+	make -C sksatlib
 	make -C device
 	make $(TAR)
 
 run:$(TAR) $(BIN)
+	make
 	./$(TAR) $(RUNFLAGS)
 
 clean:

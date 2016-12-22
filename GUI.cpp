@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <iostream>
 #include "GUI.h"
 
@@ -7,6 +8,7 @@ using namespace std;
 
 void test(int val){
 	cout<<"test "<<val<<endl;
+	
 }
 
 void GUI::ThreadProc(){

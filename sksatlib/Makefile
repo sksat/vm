@@ -1,5 +1,6 @@
 TAR	= sksatlib.a
-OBJS	= Bitmap.o
+OBJS	= 
+#Bitmap.o
 
 CFLAGS	= -g
 CXXFLAGS= -std=c++11 -g

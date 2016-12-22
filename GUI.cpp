@@ -2,13 +2,19 @@
 #include <iostream>
 #include "GUI.h"
 
+//#include "sksatlib/Bitmap.h"
+
 using namespace std;
+//using namespace sksat;
 
 //typedef void (GUI::*GUIFunc_i)(int);
 
+//unsigned char *g_img;
+
 void test(int val){
 	cout<<"test "<<val<<endl;
-	
+//	Bitmap bitmap(g_img, 320, 200);
+//	bitmap.Write("screenshot.bmp");
 }
 
 void GUI::ThreadProc(){
@@ -46,7 +52,7 @@ void GUI::ThreadProc(){
 
 void GUI::display(){
 	if(disp != NULL){
-		img = disp->Draw();
+		img = disp->Draw();	//g_img = img;
 	}
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0);

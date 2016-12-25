@@ -2,17 +2,22 @@
 #include <iostream>
 #include "GUI.h"
 
-//#include "sksatlib/Bitmap.h"
+#include "sksatlib/PPM.h"
 
 using namespace std;
-//using namespace sksat;
+using namespace sksat;
 
 //typedef void (GUI::*GUIFunc_i)(int);
 
-//unsigned char *g_img;
+unsigned char *g_img;
 
 void test(int val){
 	cout<<"test "<<val<<endl;
+	PPM *ppm;
+	ppm = new PPM();
+	ppm->ChangeSize(320, 200);
+	ppm->Load(g_img, 320, 200);
+	ppm->Write("screenshot.ppm");
 //	Bitmap bitmap(g_img, 320, 200);
 //	bitmap.Write("screenshot.bmp");
 }
@@ -52,7 +57,7 @@ void GUI::ThreadProc(){
 
 void GUI::display(){
 	if(disp != NULL){
-		img = disp->Draw();	//g_img = img;
+		img = disp->Draw();	g_img = img;
 	}
 	
 	glClearColor(0.0, 0.0, 0.0, 0.0);

@@ -30,8 +30,8 @@ bool Image::LoadRGBA(unsigned char *addr, unsigned int xsize, unsigned int ysize
 		return false;
 	}
 	
-	for(int x=0;x<xsize;x++){
 	for(int y=0;y<ysize;y++){
+	for(int x=0;x<xsize;x++){
 		for(int i=0;i<4;i++){
 			data[(this->xsize*y + x)*4 + i] = addr[(this->xsize*y + x)*4 + i];
 		}
@@ -46,8 +46,8 @@ bool Image::LoadRGB(unsigned char *addr, unsigned int xsize, unsigned int ysize)
 	if(IsLoaded())	return false;
 	if(xsize != this->xsize || ysize != this->ysize)	return false;
 	
-	for(int x=0;x<xsize;x++){
 	for(int y=0;y<ysize;y++){
+	for(int x=0;x<xsize;x++){
 		for(int i=0;i<3;i++){
 			data[(this->xsize*y + x)*4 + i] = addr[(this->xsize*y + x)*3 + i];
 		}

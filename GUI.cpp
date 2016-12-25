@@ -16,7 +16,7 @@ void test(int val){
 	PPM *ppm;
 	ppm = new PPM();
 	ppm->ChangeSize(320, 200);
-	ppm->Load(g_img, 320, 200);
+	ppm->LoadRGB(g_img, 320, 200);
 	ppm->Write("screenshot.ppm");
 //	Bitmap bitmap(g_img, 320, 200);
 //	bitmap.Write("screenshot.bmp");

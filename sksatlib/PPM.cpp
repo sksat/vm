@@ -25,8 +25,8 @@ void PPM::Write(const char *fname){
 		fprintf(fp, "255\n");
 	}
 	
-	for(int x=0;x<this->xsize;x++){
 	for(int y=0;y<this->ysize;y++){
+	for(int x=0;x<this->xsize;x++){
 		for(int i=0;i<3;i++){
 			fprintf(fp, "%u", data[(y*this->xsize + x)*4 + i]);
 			if(i!=2){

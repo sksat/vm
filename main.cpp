@@ -10,6 +10,8 @@
 
 #define DEBUG
 
+#define QUIET
+
 #define INTERNAL_BOXFILL
 //#define TEST_VRAM
 #define HARIBOTE_UI
@@ -85,11 +87,13 @@ int main(int argc, char **argv){
 		int bit		= emu->GetBitMode();
 		uint8_t code	= emu->GetCode8(0);
 		instruction_func_t* func;
-		
+
+#ifndef QUIET
 		cout<<"emu: ";
 		cout<<"EIP = "<<hex<<showbase<<emu->EIP<<", ";
 		cout<<"Code = "<<(uint32_t)code<<endl;
-		
+#endif
+
 		if(bit == 16){
 			func = instructions16[code];
 		}else if(bit == 32){

@@ -3,6 +3,7 @@
 #include "GUI.h"
 
 #include "sksatlib/PPM.h"
+#include "sksatlib/BMP.h"
 
 using namespace std;
 using namespace sksat;
@@ -12,14 +13,25 @@ using namespace sksat;
 unsigned char *g_img;
 
 void test(int val){
-	cout<<"test "<<val<<endl;
+//	cout<<"test "<<val<<endl;
+
+	//PPMのテスト
 	PPM *ppm;
 	ppm = new PPM();
 	ppm->ChangeSize(320, 200);
 	ppm->LoadRGB(g_img, 320, 200);
 	ppm->Write("screenshot.ppm");
-//	Bitmap bitmap(g_img, 320, 200);
-//	bitmap.Write("screenshot.bmp");
+	delete ppm;
+	
+	//Bitmapのテスト
+	BMP *bmp;
+	bmp = new BMP();
+	bmp->ChangeSize(320, 200);
+	bmp->LoadRGB(g_img, 320, 200);
+	bmp->Write("screenshot.bmp");
+	delete bmp;
+	
+	return;
 }
 
 void GUI::ThreadProc(){
@@ -43,7 +55,7 @@ void GUI::ThreadProc(){
 //	glutTimerFunc(500, f, 0);
 	
 	int menu = glutCreateMenu(test);
-	glutAddMenuEntry("menu1", 1);
+	glutAddMenuEntry("screenshot", 1);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 	
 	while(msgflg){	//message loop

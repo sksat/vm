@@ -1,6 +1,8 @@
 #ifndef IMAGE_H_
 #define IMAGE_H_
 
+#include <stdint.h>
+
 namespace sksat {
 
 //画像基底クラス
@@ -33,7 +35,7 @@ struct FileHeader {
 	unsigned short	bfReserved1;
 	unsigned short	bfReserved2;
 	unsigned long	bfOffBits;
-};
+} __attribute__ ((packed));
 
 struct InfoHeader {
 	unsigned long	biSize;
@@ -47,7 +49,7 @@ struct InfoHeader {
 	long		biYPixPerMeter;
 	unsigned long	biClrUsed;
 	unsigned long	biClrImportant;
-};
+} __attribute__ ((packed));
 
 struct rgbQUAD {
 	unsigned char	rgbBlue;

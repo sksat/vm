@@ -26,7 +26,7 @@ void BMP::InitFileHeader(){
 					+ (xsize * ysize * COLOR_BIT_NUM);
 	fh.bfReserved1		= 0;
 	fh.bfReserved2		= 0;
-	fh.bfOffBits		= sizeof(FileHeader) + sizeof(InfoHeader);
+	fh.bfOffBits		= 14 + 40;//sizeof(FileHeader) + sizeof(InfoHeader);
 	
 	return;
 }
@@ -41,7 +41,7 @@ void BMP::InitInfoHeader(){
 	ih.biSizeImage		= (xsize * ysize * COLOR_BIT_NUM);
 	ih.biXPixPerMeter	= 3780;
 	ih.biYPixPerMeter	= 3780;
-	ih.biClrUsed		= 0;
+	ih.biClrUsed		= 256;
 	ih.biClrImportant	= 0;
 	
 	return;
@@ -76,9 +76,19 @@ void BMP::InitPalette(){
 	return;
 }
 
+void BMP::UpdateHeader(){
+	fh.bfSize		= 14 + 40//sizeof(FileHeader) + sizeof(InfoHeader)
+					+ (xsize * ysize * COLOR_BIT_NUM);
+	ih.biWidth		= xsize;
+	ih.biHeight		= ysize;
+	ih.biSizeImage		= (xsize * ysize * COLOR_BIT_NUM);
+}
+
 void BMP::Write(const char *fname){
 	FILE *fp;
-	
+
+	UpdateHeader();
+
 	fp = fopen(fname, "wb");
 	if(fp == NULL){
 		return;
@@ -88,7 +98,7 @@ void BMP::Write(const char *fname){
 	fwrite(&ih, sizeof(InfoHeader), 1, fp);
 	fwrite(&palette, sizeof(rgbQUAD), COLOR_USE_NUM, fp);
 	
-	fwrite(&data, sizeof(unsigned char), (xsize * ysize), fp);
+//	fwrite(&data, sizeof(unsigned char), (xsize * ysize), fp);
 	
 	fclose(fp);
 	return;

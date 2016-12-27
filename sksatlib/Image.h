@@ -30,26 +30,26 @@ public:
 namespace bmp {
 
 struct FileHeader {
-	unsigned short	bfType;
-	unsigned long	bfSize;
-	unsigned short	bfReserved1;
-	unsigned short	bfReserved2;
-	unsigned long	bfOffBits;
-} __attribute__ ((packed));
+	uint16_t	bfType;
+	uint32_t	bfSize;
+	uint16_t	bfReserved1;
+	uint16_t	bfReserved2;
+	uint32_t	bfOffBits;
+};
 
 struct InfoHeader {
-	unsigned long	biSize;
-	long		biWidth;
-	long		biHeight;
-	unsigned short	biPlanes;
-	unsigned short	biBitCount;
-	unsigned long	biCompression;
-	unsigned long	biSizeImage;
-	long		biXPixPerMeter;
-	long		biYPixPerMeter;
-	unsigned long	biClrUsed;
-	unsigned long	biClrImportant;
-} __attribute__ ((packed));
+	uint32_t	biSize;
+	int32_t		biWidth;
+	int32_t		biHeight;
+	uint16_t	biPlanes;
+	uint16_t	biBitCount;
+	uint32_t	biCompression;
+	uint32_t	biSizeImage;
+	int32_t		biXPixPerMeter;
+	int32_t		biYPixPerMeter;
+	uint32_t	biClrUsed;
+	uint32_t	biClrImportant;
+};
 
 struct rgbQUAD {
 	unsigned char	rgbBlue;

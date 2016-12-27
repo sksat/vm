@@ -21,6 +21,7 @@ private:
 	void InitFileHeader();
 	void InitInfoHeader();
 	void InitPalette();
+	void UpdateHeader();
 public:
 	BMP();
 	~BMP();

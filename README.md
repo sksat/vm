@@ -7,8 +7,8 @@
 GUI部分はOpenGLで作っています(OpenGLでマウスを吸い込む方法が分からないので知ってる人いたら教えてください)。
 
 ###ビルド方法  
-たぶん、make runするだけでコンパイル・リンク・実行ができると思います。ただし、ビルド・実行にはfreeglutが必要です。
-G++ 5.4.0で確認しています。
+Debian系のOSであれば、まずinstall.shを起動してfreeglutをインストールしてください。そうすれば、あとかmake runするだけでコンパイル・リンク・実行ができると思います。
+g++ 5.4.0で確認しています。
 
 ###Information
 [自作OS Advent Calendar 2016](www.adventar.org/calendars/1666)に[記事](sksat.hatenablog.com/entry/2016/12/21/231342)を書きました。

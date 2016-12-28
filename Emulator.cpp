@@ -96,13 +96,47 @@ uint8_t Emulator::GetRegister8(int index){
 uint32_t Emulator::GetRegister32(int index){
 	return reg[index].reg32;
 }
-/*
-void Emulator::SetRegister8(int index, uint32_t val){
-	
+
+void Emulator::SetRegister8(int index, uint8_t val){
+	if(index < 4){
+		uint32_t r = reg[index].reg32 & 0xffffff00;
+		reg[index].reg32 = r | (uint32_t)val;
+	}else{
+		uint32_t r = reg[index - 4].reg32 & 0xffff00ff;
+		reg[index - 4].reg32 = r | ((int32_t)val << 8);
+	}
 }
-*/
+
 void Emulator::SetRegister32(int index, uint32_t val){
 	reg[index].reg32 = val;
+}
+
+uint32_t Emulator::GetMemory8(uint32_t addr){
+	return memory[addr];
+}
+
+uint32_t Emulator::GetMemory32(uint32_t addr){
+	// little endian
+	uint32_t ret = 0;
+	for(int i=0; i<4; i++){
+		ret |= GetMemory8(addr + i) << (8 * i);
+	}
+	
+	return ret;
+}
+
+void Emulator::SetMemory8(uint32_t addr, uint32_t val){
+	memory[addr] = val & 0xFF;
+	return;
+}
+
+void Emulator::SetMemory32(uint32_t addr, uint32_t val){
+	//little endian
+	for(int i=0; i<4; i++){
+		SetMemory8(addr + i, val >> (i*8));
+	}
+
+	return;
 }
 
 void Emulator::DumpRegisters(int bit){

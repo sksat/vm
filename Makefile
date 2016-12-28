@@ -1,6 +1,6 @@
 TAR	= vm
 BIN	= test02.bin
-OBJS	= main.o Emulator.o Instruction16.o Instruction32.o
+OBJS	= main.o Emulator.o Instruction16.o Instruction32.o ModRM.o
 OBJS	+= GUI.o
 OBJS	+= sksatlib/sksatlib.a
 OBJS	+= device/Device.a

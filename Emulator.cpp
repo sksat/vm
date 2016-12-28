@@ -96,6 +96,14 @@ uint8_t Emulator::GetRegister8(int index){
 uint32_t Emulator::GetRegister32(int index){
 	return reg[index].reg32;
 }
+/*
+void Emulator::SetRegister8(int index, uint32_t val){
+	
+}
+*/
+void Emulator::SetRegister32(int index, uint32_t val){
+	reg[index].reg32 = val;
+}
 
 void Emulator::DumpRegisters(int bit){
 	cout<<"---Dump Registers---"<<endl;

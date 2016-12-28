@@ -83,10 +83,18 @@ public:				// member funcs
 	int8_t  GetSignCode8(int index);
 	uint32_t GetCode32(int index);
 	int32_t GetSignCode32(int index);
-	
+
 	uint8_t GetRegister8(int index);
 	uint32_t GetRegister32(int index);
-	
+
+	void SetRegister8(int index, uint8_t val);
+	void SetRegister32(int index, uint32_t val);
+
+	uint32_t GetMemory8(uint32_t addr);
+	uint32_t GetMemory32(uint32_t addr);
+	void SetMemory8(uint32_t addr, uint32_t val);
+	void SetMemory32(uint32_t addr, uint32_t val);
+
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();
 	void DumpMemory(const char *fname, uint8_t addr, uint8_t size);

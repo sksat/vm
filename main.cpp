@@ -12,9 +12,9 @@
 
 #define QUIET
 
-#define INTERNAL_BOXFILL
+//#define INTERNAL_BOXFILL
 //#define TEST_VRAM
-#define HARIBOTE_UI
+//#define HARIBOTE_UI
 
 using namespace std;
 

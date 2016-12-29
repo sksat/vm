@@ -98,6 +98,8 @@ int BMP::GetPaletteNum(unsigned char *rgba){
 	for(int i=0;i<COLOR_USE_NUM;i++){
 		if(IsSame(rgba, &(palette[i]))){
 			return i;
+		}else{
+			return -1;
 		}
 	}
 }

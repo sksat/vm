@@ -45,8 +45,7 @@ int main(int argc, char **argv){
 	
 	emu->LoadBinary(argv[1], 0x7c00, 512);
 	
-	emu->EIP = 0x7c00;
-//	emu->EAX = 0xffffffff;
+	emu->EIP = 0x7c00;	//EIP初期設定
 	
 	//internal boxfill
 #ifdef INTERNAL_BOXFILL

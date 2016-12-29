@@ -1,5 +1,7 @@
 TAR	= vm
 BIN	= test02.bin
+#BINSRC	= test03.c
+
 OBJS	= main.o Emulator.o Instruction16.o Instruction32.o ModRM.o
 OBJS	+= GUI.o
 OBJS	+= sksatlib/sksatlib.a
@@ -45,3 +47,11 @@ $(TAR):$(OBJS)
 
 device/Device.a:
 	make -C device
+
+#$(BIN):$(BINSRC) crt0.asm
+#	gcc -nostdlib -fno-asynchronous-unwind-tables -g -fno-stack-protector -c $(BINSRC)	
+#	ld --entry=start --oformat=binary -Ttext 0x7c00 -o $@ crt0.o $(BINSRC:.c=.o)
+
+crt0.o:crt0.asm
+	nasm -f elf crt0.asm
+

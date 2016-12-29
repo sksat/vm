@@ -1,10 +1,19 @@
 #include <iostream>
 
 #include "Emulator.h"
+#include "ModRM.h"
 
 instruction_func_t* instructions32[256];
 
 namespace instruction32{
+
+void add_rm32_r32(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t r32 = modrm.GetR32();
+	uint32_t rm32 = modrm.GetRM32();
+	
+}
 
 void mov_r8_imm8(Emulator *emu){
 	uint8_t reg = emu->GetCode8(0) - 0xB0;
@@ -20,12 +29,40 @@ void mov_r32_imm32(Emulator *emu){
 	emu->EIP += 5;
 }
 
+void mov_r8_rm8(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t rm8 = modrm.GetRM8();
+	modrm.SetR8(rm8);
+}
+
 void inc_r32(Emulator *emu){
 	uint8_t reg = emu->GetCode8(0) - 0x40;
 	emu->reg[reg].reg32++;
 	emu->EIP++;
 }
 
+void add_rm32_imm8(Emulator *emu, ModRM *modrm){
+	uint32_t rm32 = modrm->GetRM32(emu);
+	uint32_t imm8 = (uint32_t)emu->GetSignCode8(0);
+	emu->EIP++;
+	modrm->SetRM32(emu, rm32 + imm8);
+}
+
+void mov_rm32_imm32(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t val = emu->GetCode32(0);
+	emu->EIP+=4;
+	modrm.SetRM32(emu, val);
+}
+/*
+void in_al_dx(Emulator *emu){
+	uint16_t addr = emu->EDX & 0xffff;
+	uint8_t val = io_in8(addr);
+	
+}
+*/
 void short_jump(Emulator *emu){
 	int8_t diff = emu->GetSignCode8(1);
 	emu->EIP += (diff + 2);
@@ -46,7 +83,7 @@ void InitInstructions32(void){
 	int i;
 	instruction_func_t** func = instructions32;
 	
-	//func[0x10]	= add_rm32_r32;
+	func[0x01]	= add_rm32_r32;
 	
 	//func[0x3B]	= cmp_r32_rm32;
 	//func[0x3C]	= cmp_al_imm8;

@@ -23,10 +23,11 @@ BMP::~BMP(){
 void BMP::InitFileHeader(){
 	fh.bfType		= 'B' | ('M' << 8);
 	fh.bfSize		= sizeof(FileHeader) + sizeof(InfoHeader)
-					+ (xsize * ysize * COLOR_BIT_NUM);
+					+ (sizeof(rgbQUAD) * COLOR_USE_NUM) + (xsize * ysize);
 	fh.bfReserved1		= 0;
 	fh.bfReserved2		= 0;
-	fh.bfOffBits		= 14 + 40;//sizeof(FileHeader) + sizeof(InfoHeader);
+	fh.bfOffBits		= sizeof(FileHeader) + sizeof(InfoHeader)
+					+ sizeof(rgbQUAD) * COLOR_USE_NUM;
 	
 	return;
 }
@@ -41,7 +42,7 @@ void BMP::InitInfoHeader(){
 	ih.biSizeImage		= (xsize * ysize * COLOR_BIT_NUM);
 	ih.biXPixPerMeter	= 3780;
 	ih.biYPixPerMeter	= 3780;
-	ih.biClrUsed		= 256;
+	ih.biClrUsed		= 0;
 	ih.biClrImportant	= 0;
 	
 	return;
@@ -84,6 +85,23 @@ void BMP::UpdateHeader(){
 	ih.biSizeImage		= (xsize * ysize * COLOR_BIT_NUM);
 }
 
+bool BMP::IsSame(unsigned char *rgba, rgbQUAD *quad){
+	if(rgba[0] != quad->rgbRed)	return false;
+	if(rgba[1] != quad->rgbGreen)	return false;
+	if(rgba[2] != quad->rgbBlue)	return false;
+	if(rgba[3] != quad->rgbReserved)return false;
+
+	return true;
+}
+
+int BMP::GetPaletteNum(unsigned char *rgba){
+	for(int i=0;i<COLOR_USE_NUM;i++){
+		if(IsSame(rgba, &(palette[i]))){
+			return i;
+		}
+	}
+}
+
 void BMP::Write(const char *fname){
 	FILE *fp;
 
@@ -99,6 +117,17 @@ void BMP::Write(const char *fname){
 	fwrite(&palette, sizeof(rgbQUAD), COLOR_USE_NUM, fp);
 	
 //	fwrite(&data, sizeof(unsigned char), (xsize * ysize), fp);
+	unsigned char *wdata;
+	wdata = new unsigned char[xsize * ysize];
+	for(int y=0;y<ysize;y++){
+	for(int x=0;x<xsize;x++){
+		int j = GetPaletteNum(&(data[y * xsize + x]));
+		if(j == -1)	continue;
+		wdata[y * xsize + x] = (unsigned char)j;
+	}
+	}
+	
+	fwrite(wdata, sizeof(unsigned char), (xsize * ysize), fp);
 	
 	fclose(fp);
 	return;

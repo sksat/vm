@@ -3,7 +3,17 @@
 
 #include <stdint.h>
 
+#pragma pack(1)
+
 namespace sksat {
+
+struct RGB {
+	unsigned r, g, b;
+};
+
+struct RGBA {
+	unsigned r, g, b, a;
+};
 
 //画像基底クラス
 class Image {

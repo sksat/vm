@@ -22,6 +22,8 @@ private:
 	void InitInfoHeader();
 	void InitPalette();
 	void UpdateHeader();
+	bool IsSame(unsigned char *rgba, bmp::rgbQUAD *quad);
+	int  GetPaletteNum(unsigned char *rgba);
 public:
 	BMP();
 	~BMP();

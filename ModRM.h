@@ -21,14 +21,31 @@ public:
 public:
 	ModRM();
 	ModRM(Emulator *emu);
-	~ModRM();
+//	~ModRM();
 
 	void Parse(Emulator *emu);
 	void Parse();
+
+	uint8_t GetRM8(Emulator *emu);
+	uint8_t GetRM8();
+	void SetRM8(Emulator *emu, uint8_t val);
+	void SetRM8(uint8_t val);
+
 	uint32_t GetRM32(Emulator *emu);
 	uint32_t GetRM32();
 	void SetRM32(Emulator *emu, uint32_t val);
 	void SetRM32(uint32_t val);
+
+	uint8_t GetR8(Emulator *emu);
+	uint8_t GetR8();
+	void SetR8(Emulator *emu, uint8_t val);
+	void SetR8(uint8_t val);
+
+	uint32_t GetR32(Emulator *emu);
+	uint32_t GetR32();
+	void SetR32(Emulator *emu, uint32_t val);
+	void SetR32(uint32_t val);
+
 	uint32_t CalcMemAddr(Emulator *emu);
 	uint32_t CalcMemAddr();
 };

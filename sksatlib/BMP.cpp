@@ -39,7 +39,7 @@ void BMP::InitInfoHeader(){
 	ih.biPlanes		= 1;		//1固定
 	ih.biBitCount		= COLOR_BIT_NUM;
 	ih.biCompression	= 0;		//無圧縮
-	ih.biSizeImage		= (xsize * ysize * COLOR_BIT_NUM);
+	ih.biSizeImage		= (xsize * ysize);// * COLOR_BIT_NUM);
 	ih.biXPixPerMeter	= 3780;
 	ih.biYPixPerMeter	= 3780;
 	ih.biClrUsed		= 0;
@@ -99,7 +99,7 @@ int BMP::GetPaletteNum(unsigned char *rgba){
 		if(IsSame(rgba, &(palette[i]))){
 			return i;
 		}else{
-			return -1;
+			return -1;	printf("e");
 		}
 	}
 }

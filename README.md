@@ -11,6 +11,6 @@ Debian系のOSであれば、まずinstall.shを起動してfreeglutをインス
 g++ 5.4.0で確認しています。
 
 ###Information
-[自作OS Advent Calendar 2016](www.adventar.org/calendars/1666)に[記事](sksat.hatenablog.com/entry/2016/12/21/231342)を書きました。
+[自作OS Advent Calendar 2016](www.adventar.org/calendars/1666)に[22日目の記事](http://sksat.hatenablog.com/entry/2016/12/21/231342)を書きました。
 
 

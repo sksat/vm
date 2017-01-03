@@ -12,6 +12,7 @@ SCRNY	EQU	200
 
 entry:
 	MOV	EAX,0x00
+	JMP	entry
 loop:
 	MOV	EBX,VRAM
 	ADD	EBX,EAX

@@ -12,12 +12,13 @@
     12 00007C00                                 
     13 00007C00                                 entry:
     14 00007C00 B8 00000000                     	MOV	EAX,0x00
-    15 00007C05                                 loop:
-    16 00007C05 BB 000A0000                     	MOV	EBX,VRAM
-    17 00007C0A 01 C3                           	ADD	EBX,EAX
-    18 00007C0C 66 C7 03 00FF                   	MOV	WORD [EBX],0xff
-    19 00007C11 40                              	INC	EAX
-    20 00007C12 3D 000000FF                     	CMP	EAX,0xff
-    21 00007C17 74 E7                           	JE	entry
-    22 00007C19                                 ;	JMP	entry
-    23 00007C19                                 
+    15 00007C05 EB F9                           	JMP	entry
+    16 00007C07                                 loop:
+    17 00007C07 BB 000A0000                     	MOV	EBX,VRAM
+    18 00007C0C 01 C3                           	ADD	EBX,EAX
+    19 00007C0E 66 C7 03 00FF                   	MOV	WORD [EBX],0xff
+    20 00007C13 40                              	INC	EAX
+    21 00007C14 3D 000000FF                     	CMP	EAX,0xff
+    22 00007C19 74 E5                           	JE	entry
+    23 00007C1B                                 ;	JMP	entry
+    24 00007C1B                                 

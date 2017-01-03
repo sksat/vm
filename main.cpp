@@ -10,7 +10,7 @@
 
 #define DEBUG
 
-//#define QUIET
+#define QUIET
 
 //#define INTERNAL_BOXFILL
 //#define TEST_VRAM

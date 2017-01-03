@@ -11,6 +11,10 @@ using namespace sksat;
 //typedef void (GUI::*GUIFunc_i)(int);
 
 unsigned char *g_img;
+thread *g_hThread;
+
+void close();
+
 
 void test(int val){
 //	cout<<"test "<<val<<endl;
@@ -35,6 +39,7 @@ void test(int val){
 }
 
 void GUI::ThreadProc(){
+try{
 //	img = new unsigned char[scrnx * scrny *3];
 		
 //cout<<"a"<<endl;	
@@ -53,6 +58,7 @@ void GUI::ThreadProc(){
 	//glutDisplayFunc(a::display);	//message loopをglutMainLoopではなくwhileでやっていて、その中でdisplayを呼んでいるため必要ない（こうするためにはGui::displayをstaticメンバ関数にする必要がある）
 //	GUIFunc_i f = timer;
 //	glutTimerFunc(500, f, 0);
+	glutCloseFunc(close);
 	
 	int menu = glutCreateMenu(test);
 	glutAddMenuEntry("screenshot", 1);
@@ -63,8 +69,20 @@ void GUI::ThreadProc(){
 		this->display();
 	}
 
+}
+catch(char m){
 	glutDestroyWindow(hMainWin);
 	cout<<"destroy"<<endl;
+	return;
+}
+
+}
+
+void close(){
+	//goto gui_thread_end;
+	printf("close\n");
+//	g_hThread->terminate();
+	throw 'e';
 }
 
 void GUI::display(){
@@ -122,6 +140,7 @@ GUI::~GUI(){
 
 void GUI::OpenWindow(){
 	hThread = new thread(&GUI::ThreadProc, this);	//メンバ関数を指定する場合は第２引数=this
+	g_hThread = hThread;
 	
 //	hThread->join();	//とりあえず終わるまで待つ
 }

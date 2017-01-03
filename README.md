@@ -12,3 +12,6 @@ g++ 5.4.0で確認しています。
 
 ###Information
 [自作OS Advent Calendar 2016](http://www.adventar.org/calendars/1666)に[22日目の記事](http://sksat.hatenablog.com/entry/2016/12/21/231342)を書きました。
+
+###動作画面
+![HARIBOTE-UI](https://cdn-ak.f.st-hatena.com/images/fotolife/s/sksat/20161221/20161221185532.png)

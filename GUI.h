@@ -2,7 +2,8 @@
 #define GUI_H_
 
 #include <thread>
-#include <GL/freeglut.h>
+//#include <GL/freeglut.h>
+#include "GL/freeglut.h"
 
 #include "device/Display.h"
 

@@ -1,5 +1,5 @@
 #include <iostream>
-
+using namespace std;
 #include "Emulator.h"
 #include "ModRM.h"
 
@@ -12,7 +12,7 @@ void add_rm32_r32(Emulator *emu){
 	ModRM modrm(emu);
 	uint32_t r32 = modrm.GetR32();
 	uint32_t rm32 = modrm.GetRM32();
-	
+	modrm.SetRM32(rm32 + r32);
 }
 
 void mov_r8_imm8(Emulator *emu){
@@ -99,7 +99,7 @@ void call_rel32(Emulator *emu){
 	emu->EIP += (diff + 5);
 }
 
-void ret(Emulator *emu){
+void ret(Emulator *emu){//	cout<<"ret"<<endl;
 	emu->EIP = emu->Pop32();
 }
 

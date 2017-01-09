@@ -156,7 +156,7 @@ void Emulator::Push32(uint32_t val){
 }
 
 uint32_t Emulator::Pop32(){
-	uint32_t addr = GetRegister32(ESP);
+	uint32_t addr = ESP;//GetRegister32(ESP);
 	uint32_t ret = GetMemory32(addr);
 //	SetRegister32(ESP, addr + 4);
 	ESP = addr + 4;

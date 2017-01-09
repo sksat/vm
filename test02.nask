@@ -18,4 +18,5 @@ start:
 add_routine:
 	MOV	ECX,EAX
 	ADD	ECX,EBX
+;	JMP	0
 	RET

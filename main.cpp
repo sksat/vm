@@ -46,6 +46,7 @@ int main(int argc, char **argv){
 	emu->LoadBinary(argv[1], 0x7c00, 512);
 	
 	emu->EIP = 0x7c00;	//EIP初期設定
+	emu->ESP = 0x7c00;
 	
 	//internal boxfill
 #ifdef INTERNAL_BOXFILL
@@ -81,6 +82,8 @@ int main(int argc, char **argv){
 	
 	gui->OpenWindow();
 	
+//	emu->ESP = 0xffff;
+	emu->DumpRegisters(32);
 	//emulation
 	while(true){
 		int bit		= emu->GetBitMode();

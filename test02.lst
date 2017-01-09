@@ -18,4 +18,5 @@
     18 00007C14                                 add_routine:
     19 00007C14 89 C1                           	MOV	ECX,EAX
     20 00007C16 01 D9                           	ADD	ECX,EBX
-    21 00007C18 C3                              	RET
+    21 00007C18                                 ;	JMP	0
+    22 00007C18 C3                              	RET

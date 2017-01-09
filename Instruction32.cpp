@@ -73,6 +73,18 @@ void near_jump(Emulator *emu){
 	emu->EIP += (diff + 5);
 }
 
+void push_r32(Emulator *emu){
+	uint8_t reg = emu->GetCode8(0) - 0x50;
+	emu->Push32(emu->GetRegister32(reg));
+	emu->EIP++;
+}
+
+void pop_r32(Emulator *emu){
+	uint8_t reg = emu->GetCode8(0) - 0x58;
+	emu->SetRegister32(reg, emu->Pop32());
+	emu->EIP++;
+}
+
 }
 
 
@@ -95,17 +107,17 @@ void InitInstructions32(void){
 	}
 	
 	
-	/*
+	
 	for(i=0;i<8;i++){
 		func[0x50 + i]	= push_r32;
 	}
-	*/
 	
-	/*
+	
+	
 	for(i=0;i<8;i++){
 		func[0x58 + i]	= pop_r32;
 	}
-	*/
+	
 	
 	
 	//func[0x68]	= push_imm32;

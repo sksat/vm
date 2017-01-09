@@ -95,6 +95,9 @@ public:				// member funcs
 	void SetMemory8(uint32_t addr, uint32_t val);
 	void SetMemory32(uint32_t addr, uint32_t val);
 
+	void Push32(uint32_t val);
+	uint32_t Pop32();
+
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();
 	void DumpMemory(const char *fname, uint8_t addr, uint8_t size);

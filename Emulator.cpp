@@ -139,6 +139,19 @@ void Emulator::SetMemory32(uint32_t addr, uint32_t val){
 	return;
 }
 
+void Emulator::Push32(uint32_t val){
+	uint32_t addr = GetRegister32(ESP) - 4;
+	SetRegister32(ESP, addr);
+	SetMemory32(addr, val);
+}
+
+uint32_t Emulator::Pop32(){
+	uint32_t addr = GetRegister32(ESP);
+	uint32_t ret = GetMemory32(addr);
+	SetRegister32(ESP, addr + 4);
+	return ret;
+}
+
 void Emulator::DumpRegisters(int bit){
 	cout<<"---Dump Registers---"<<endl;
 	

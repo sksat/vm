@@ -112,6 +112,10 @@ void Emulator::SetRegister32(int index, uint32_t val){
 }
 
 uint32_t Emulator::GetMemory8(uint32_t addr){
+	if(addr > memory_size){
+		cout<<"fatal error:"<<"メモリサイズを超えたアドレス"<<addr<<"を参照しようとしました。"<<endl;
+		return 0x00;
+	}
 	return memory[addr];
 }
 
@@ -126,6 +130,10 @@ uint32_t Emulator::GetMemory32(uint32_t addr){
 }
 
 void Emulator::SetMemory8(uint32_t addr, uint32_t val){
+	if(addr > memory_size){
+		cout<<"fatal error:"<<"メモリサイズを超えたアドレス"<<addr<<"に値("<<(val & 0xff)<<")をセットしようとしました"<<endl;
+		return;
+	}
 	memory[addr] = val & 0xFF;
 	return;
 }
@@ -140,15 +148,18 @@ void Emulator::SetMemory32(uint32_t addr, uint32_t val){
 }
 
 void Emulator::Push32(uint32_t val){
-	uint32_t addr = GetRegister32(ESP) - 4;
-	SetRegister32(ESP, addr);
-	SetMemory32(addr, val);
+//	uint32_t addr = /*GetRegister32(ESP)*/ ESP  - 4;
+//	SetRegister32(ESP, addr);
+//	ESP = addr;
+	ESP = ESP - 4;
+	SetMemory32(ESP, val);
 }
 
 uint32_t Emulator::Pop32(){
 	uint32_t addr = GetRegister32(ESP);
 	uint32_t ret = GetMemory32(addr);
-	SetRegister32(ESP, addr + 4);
+//	SetRegister32(ESP, addr + 4);
+	ESP = addr + 4;
 	return ret;
 }
 

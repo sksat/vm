@@ -10,7 +10,7 @@
 
 #define DEBUG
 
-#define QUIET
+//#define QUIET
 
 //#define INTERNAL_BOXFILL
 //#define TEST_VRAM
@@ -109,6 +109,11 @@ int main(int argc, char **argv){
 		
 		//execute
 		func(emu);
+		
+		if(emu->EIP == 0){
+			cout<<"EIP = 0になったので終了"<<endl;
+			break;
+		}
 		
 		if(emu->EIP > emu->GetMemSize()){
 			cout<<"out of memory."<<endl;

@@ -56,6 +56,14 @@ void mov_rm32_imm32(Emulator *emu){
 	emu->EIP+=4;
 	modrm.SetRM32(emu, val);
 }
+
+void mov_rm32_r32(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t r32 = modrm.GetR32();
+	modrm.SetRM32(r32);
+}
+
 /*
 void in_al_dx(Emulator *emu){
 	uint16_t addr = emu->EDX & 0xffff;
@@ -83,6 +91,16 @@ void pop_r32(Emulator *emu){
 	uint8_t reg = emu->GetCode8(0) - 0x58;
 	emu->SetRegister32(reg, emu->Pop32());
 	emu->EIP++;
+}
+
+void call_rel32(Emulator *emu){
+	int32_t diff = emu->GetSignCode32(1);
+	emu->Push32(emu->EIP + 5);	//call命令は全体で5バイト
+	emu->EIP += (diff + 5);
+}
+
+void ret(Emulator *emu){
+	emu->EIP = emu->Pop32();
 }
 
 }
@@ -135,7 +153,7 @@ void InitInstructions32(void){
 	
 	//func[0x83]	= code_83;
 	//func[0x88]	= mov_rm8_r8;
-	//func[0x89]	= mov_rm32_r32;
+	func[0x89]	= mov_rm32_r32;
 	//func[0x8A]	= mov_r8_rm8;
 	//func[0xBB]	= mov_r32_rm32;
 	
@@ -147,13 +165,13 @@ void InitInstructions32(void){
 		func[0xB8 + i]	= mov_r32_imm32;
 	}
 	
-	//func[0xC3]	= ret;
+	func[0xC3]	= ret;
 	//func[0xC7]	= mov_rm32_imm32;
 	//func[0xC9]	= leave;
 	
 	//func[0xCD]	= swi;
 	
-	//func[0xE8]	= call_rel32;
+	func[0xE8]	= call_rel32;
 	func[0xE9]	= near_jump;
 	func[0xEB]	= short_jump;
 	//func[0xEC]	= in_al_dx;

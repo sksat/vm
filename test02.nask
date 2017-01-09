@@ -10,15 +10,12 @@ SCRNY	EQU	200
 
 	ORG	0x7c00
 
-entry:
-	MOV	EAX,0x00
-	JMP	entry
-loop:
-	MOV	EBX,VRAM
-	ADD	EBX,EAX
-	MOV	WORD [EBX],0xff
-	INC	EAX
-	CMP	EAX,0xff
-	JE	entry
-;	JMP	entry
-
+start:
+	MOV	EAX,0x00f1
+	MOV	EBX,0x0029
+	CALL	add_routine
+	JMP	0
+add_routine:
+	MOV	ECX,EAX
+	ADD	ECX,EBX
+	RET

@@ -26,6 +26,8 @@ typedef union {
 	};
 } Register;	// 32bit register
 
+#define REGISTERS_COUNT32 8
+
 //16bitレジスタに簡単にアクセスするためのdefine
 #define  AX	reg[0].reg16
 #define  CX	reg[1].reg16

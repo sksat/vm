@@ -61,8 +61,10 @@ void Emulator::LoadBinary(const char* fname, uint32_t addr, int size){
 }
 
 uint8_t Emulator::GetCode8(int index){
-	if(memory_size < (EIP +index))
+	if(memory_size < (EIP +index)){
+		cout<<"error"<<endl;
 		return 0xff;
+	}
 	return memory[EIP + index];
 }
 
@@ -101,9 +103,11 @@ void Emulator::SetRegister8(int index, uint8_t val){
 	if(index < 4){
 		uint32_t r = reg[index].reg32 & 0xffffff00;
 		reg[index].reg32 = r | (uint32_t)val;
-	}else{
+	}else if(index <= REGISTERS_COUNT32){
 		uint32_t r = reg[index - 4].reg32 & 0xffff00ff;
 		reg[index - 4].reg32 = r | ((int32_t)val << 8);
+	}else{
+		cout<<index<<"番目のレジスタとかなんですか"<<endl;
 	}
 }
 

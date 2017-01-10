@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 #include "Emulator.h"
 #include "ModRM.h"
 

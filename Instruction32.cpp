@@ -97,18 +97,19 @@ void sub_rm32_imm8(Emulator *emu, ModRM *modrm){
 
 void code_83(Emulator *emu){
 	emu->EIP++;
-	ModRM modrm(emu);
+	ModRM *modrm = new ModRM(emu);
 	
-	switch(modrm.opecode){
+	switch(modrm->opecode){
 		case 0:
-			add_rm32_imm8(emu, &modrm);
+			add_rm32_imm8(emu, modrm);
 		case 5:
-			sub_rm32_imm8(emu, &modrm);
+			sub_rm32_imm8(emu, modrm);
 			break;
 		default:
-			cout<<"not implemented: 83 "<<(uint32_t)modrm.opecode<<endl;
+			cout<<"not implemented: 83 "<<(uint32_t)modrm->opecode<<endl;
 			
 	}
+	delete modrm;
 }
 
 void push_r32(Emulator *emu){

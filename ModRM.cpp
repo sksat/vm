@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#define DEBUG() cout<<"Mod:"<<(uint32_t)Mod<<" RM:"<<(uint32_t)RM<<endl;
+
 ModRM::ModRM(){
 	
 }
@@ -13,11 +15,11 @@ ModRM::ModRM(Emulator *emu){
 	Parse(emu);
 }
 
-void ModRM::Parse(Emulator *emu){
-	uint8_t code = emu->GetCode8(0);
+void ModRM::Parse(Emulator *emu){	//cout<<"parse"<<endl;
+	uint8_t code = emu->GetCode8(0);	cout<<"code="<<(uint32_t)code<<endl;
 	Mod	= ((code & 0xC0) >> 6);
 	opecode	= ((code & 0x38) >> 3);
-	RM	= code & 0x07;
+	RM	= code & 0x07;			DEBUG()
 
 	emu->EIP++;
 
@@ -82,7 +84,7 @@ void ModRM::SetRM32(Emulator *emu, uint32_t val){
 		emu->SetRegister32(RM, val);
 	}else{
 		uint32_t addr = CalcMemAddr(emu);
-		emu->SetMemory32(addr, val);
+		emu->SetMemory32(addr, val);		cout<<"setrm addr="<<addr<<" val="<<val<<hex<<" Mod="<<(uint32_t)Mod<<" RM="<<(uint32_t)RM<<endl;
 	}
 }
 

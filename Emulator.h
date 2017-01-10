@@ -8,7 +8,7 @@
 #define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
 #define REGISTERS_COUNT		8		//レジスタの本数(16/32bit)
 
-#define VRAM_ADDR		0xa0000
+#define VRAM_ADDR		0xa0//0xa0000
 
 #define LOW			0
 #define HIGH			1

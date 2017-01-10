@@ -134,6 +134,7 @@ void Emulator::SetMemory8(uint32_t addr, uint32_t val){
 		cout<<"fatal error:"<<"メモリサイズを超えたアドレス"<<addr<<"に値("<<(val & 0xff)<<")をセットしようとしました"<<endl;
 		return;
 	}
+//	cout<<addr<<"への書き込み("<<(val&0xff)<<endl;
 	memory[addr] = val & 0xFF;
 	return;
 }

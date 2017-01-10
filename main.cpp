@@ -83,7 +83,7 @@ int main(int argc, char **argv){
 	gui->OpenWindow();
 	
 //	emu->ESP = 0xffff;
-	emu->DumpRegisters(32);
+//	emu->DumpRegisters(32);
 	//emulation
 	while(true){
 		int bit		= emu->GetBitMode();

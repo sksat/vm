@@ -29,11 +29,18 @@ void mov_r32_imm32(Emulator *emu){
 	emu->EIP += 5;
 }
 
-void mov_r8_rm8(Emulator *emu){
+void mov_r8_rm8(Emulator *emu){//		cout<<"mov_r8_rm8"<<endl;
 	emu->EIP++;
 	ModRM modrm(emu);
 	uint32_t rm8 = modrm.GetRM8();
 	modrm.SetR8(rm8);
+}
+
+void mov_r32_rm32(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t rm32 = modrm.GetRM32();
+	modrm.SetR32(rm32);
 }
 
 void inc_r32(Emulator *emu){
@@ -54,10 +61,10 @@ void mov_rm32_imm32(Emulator *emu){
 	ModRM modrm(emu);
 	uint32_t val = emu->GetCode32(0);
 	emu->EIP+=4;
-	modrm.SetRM32(emu, val);
+	modrm.SetRM32(val);		cout<<"mov val="<<val<<endl;
 }
 
-void mov_rm32_r32(Emulator *emu){
+void mov_rm32_r32(Emulator *emu){	//cout<<"mov2"<<endl;
 	emu->EIP++;
 	ModRM modrm(emu);
 	uint32_t r32 = modrm.GetR32();
@@ -81,6 +88,29 @@ void near_jump(Emulator *emu){
 	emu->EIP += (diff + 5);
 }
 
+void sub_rm32_imm8(Emulator *emu, ModRM *modrm){
+	uint32_t rm32 = modrm->GetRM32();
+	uint32_t imm8 = (int32_t)emu->GetSignCode8(0);
+	emu->EIP++;
+	modrm->SetRM32(rm32 - imm8);
+}
+
+void code_83(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	
+	switch(modrm.opecode){
+		case 0:
+			add_rm32_imm8(emu, &modrm);
+		case 5:
+			sub_rm32_imm8(emu, &modrm);
+			break;
+		default:
+			cout<<"not implemented: 83 "<<(uint32_t)modrm.opecode<<endl;
+			
+	}
+}
+
 void push_r32(Emulator *emu){
 	uint8_t reg = emu->GetCode8(0) - 0x50;
 	emu->Push32(emu->GetRegister32(reg));
@@ -101,6 +131,13 @@ void call_rel32(Emulator *emu){
 
 void ret(Emulator *emu){//	cout<<"ret"<<endl;
 	emu->EIP = emu->Pop32();
+}
+
+void leave(Emulator *emu){
+//	uint32_t ebp = EBP;
+	emu->ESP = emu->EBP;
+	emu->EBP = emu->Pop32();
+	emu->EIP++;
 }
 
 }
@@ -151,11 +188,11 @@ void InitInstructions32(void){
 	//func[0x79]	= jl;
 	//func[0x7C]	= jle;
 	
-	//func[0x83]	= code_83;
+	func[0x83]	= code_83;
 	//func[0x88]	= mov_rm8_r8;
 	func[0x89]	= mov_rm32_r32;
 	//func[0x8A]	= mov_r8_rm8;
-	//func[0xBB]	= mov_r32_rm32;
+	func[0x8B]	= mov_r32_rm32;
 	
 	for(i=0;i<8;i++){
 		func[0xB0 + i]	= mov_r8_imm8;
@@ -166,8 +203,8 @@ void InitInstructions32(void){
 	}
 	
 	func[0xC3]	= ret;
-	//func[0xC7]	= mov_rm32_imm32;
-	//func[0xC9]	= leave;
+	func[0xC7]	= mov_rm32_imm32;
+	func[0xC9]	= leave;
 	
 	//func[0xCD]	= swi;
 	

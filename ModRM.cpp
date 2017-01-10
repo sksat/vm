@@ -122,7 +122,9 @@ void ModRM::SetR32(Emulator *emu, uint32_t val){
 }
 
 void ModRM::SetR32(uint32_t val){
-	if(emu != NULL) SetR32(val);
+	if(emu != NULL){
+		SetR32(emu, val);
+	}
 }
 
 uint32_t ModRM::CalcMemAddr(Emulator *emu){

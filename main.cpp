@@ -106,7 +106,8 @@ int main(int argc, char **argv){
 		}
 		
 		if(func == NULL){
-			cout<<"命令("<<showbase<<(int)code<<")は実装されていません。"<<endl;
+//			cout<<"命令("<<showbase<<(int)code<<")は実装されていません。"<<endl;
+			cout<<showbase<<(int)code<<"...？知らない命令ですね。"<<endl;
 			break;
 		}
 		

@@ -168,6 +168,54 @@ uint32_t Emulator::Pop32(){
 	return ret;
 }
 
+void Emulator::SetCarry(int is_carry){
+	if(is_carry){
+		EFLAGS != CARRY_FLAG;
+	}else{
+		EFLAGS &= ~CARRY_FLAG;
+	}
+}
+
+void Emulator::SetZero(int is_zero){
+	if(is_zero){
+		EFLAGS |= ZERO_FLAG;
+	}else{
+		EFLAGS &= ~ZERO_FLAG;
+	}
+}
+
+void Emulator::SetSign(int is_sign){
+	if(is_sign){
+		EFLAGS |= SIGN_FLAG;
+	}else{
+		EFLAGS &= ~SIGN_FLAG;
+	}
+}
+
+void Emulator::SetOverflow(int is_overflow){
+	if(is_overflow){
+		EFLAGS |= OVERFLOW_FLAG;
+	}else{
+		EFLAGS &= ~OVERFLOW_FLAG;
+	}
+}
+
+void Emulator::UpdateEflagsSub(uint32_t v1, uint32_t v2, uint64_t result){
+	// 各値の符号取得
+	int sign1 = v1 >> 31;
+	int sign2 = v2 >> 31;
+	int signr = (result >> 31) & 1;
+
+	// carry
+	SetCarry(result >> 32);
+	// zero
+	SetZero(result == 0);
+	// sign
+	SetSign(signr);
+	// overflow
+	SetOverflow(sign1 != sign2 && sign1 != signr);
+}
+
 void Emulator::DumpRegisters(int bit){
 	cout<<"---Dump Registers---"<<endl;
 	

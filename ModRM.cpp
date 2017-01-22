@@ -16,7 +16,8 @@ ModRM::ModRM(Emulator *emu){
 }
 
 void ModRM::Parse(Emulator *emu){	//cout<<"parse"<<endl;
-	uint8_t code = emu->GetCode8(0);	cout<<"code="<<(uint32_t)code<<endl;
+	uint8_t code = emu->GetCode8(0);
+	cout<<"code="<<(uint32_t)code<<endl;
 	Mod	= ((code & 0xC0) >> 6);
 	opecode	= ((code & 0x38) >> 3);
 	RM	= code & 0x07;			DEBUG()
@@ -66,6 +67,10 @@ void ModRM::SetRM8(Emulator *emu, uint8_t val){
 	}
 }
 
+void ModRM::SetRM8(uint8_t val){
+	if(emu != NULL) SetRM8(emu, val); return;
+}
+
 uint32_t ModRM::GetRM32(Emulator *emu){
 	if(Mod == 3){
 		return emu->GetRegister32(RM);
@@ -84,7 +89,12 @@ void ModRM::SetRM32(Emulator *emu, uint32_t val){
 		emu->SetRegister32(RM, val);
 	}else{
 		uint32_t addr = CalcMemAddr(emu);
-		emu->SetMemory32(addr, val);		cout<<"setrm addr="<<addr<<" val="<<val<<hex<<" Mod="<<(uint32_t)Mod<<" RM="<<(uint32_t)RM<<endl;
+		emu->SetMemory32(addr, val);
+		cout<<"setrm addr="<<addr;
+		cout<<" val="<<val<<hex;
+		cout<<" Mod="<<(uint32_t)Mod;
+		cout<<" RM="<<(uint32_t)RM;
+		cout<<endl;
 	}
 }
 

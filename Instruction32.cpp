@@ -8,12 +8,24 @@ instruction_func_t* instructions32[256];
 
 namespace instruction32{
 
+// 圧倒的NOP
+void nop(Emulator *emu){
+	emu->EIP++;
+}
+
 void add_rm32_r32(Emulator *emu){
 	emu->EIP++;
 	ModRM modrm(emu);
 	uint32_t r32 = modrm.GetR32();
 	uint32_t rm32 = modrm.GetRM32();
 	modrm.SetRM32(rm32 + r32);
+}
+
+void mov_rm8_r8(Emulator *emu){
+	emu->EIP++;
+	ModRM modrm(emu);
+	uint32_t r8 = modrm.GetR8();
+	modrm.SetRM8(r8);
 }
 
 void mov_r8_imm8(Emulator *emu){
@@ -52,7 +64,7 @@ void inc_r32(Emulator *emu){
 
 void add_rm32_imm8(Emulator *emu, ModRM *modrm){
 	uint32_t rm32 = modrm->GetRM32(emu);
-	uint32_t imm8 = (uint32_t)emu->GetSignCode8(0);
+	uint32_t imm8 = (int32_t)emu->GetSignCode8(0);
 	emu->EIP++;
 	modrm->SetRM32(emu, rm32 + imm8);
 }
@@ -125,6 +137,32 @@ void pop_r32(Emulator *emu){
 	emu->EIP++;
 }
 
+void push_imm8(Emulator *emu){
+	uint32_t val = emu->GetCode32(1);
+	emu->Push32(val);
+	emu->EIP += 2;
+}
+
+void inc_rm32(Emulator *emu, ModRM *modrm){
+	uint32_t val = modrm->GetRM32();
+	modrm->SetRM32(val + 1);
+}
+
+void code_ff(Emulator *emu){
+	emu->EIP++;
+	ModRM *modrm = new ModRM(emu);
+	
+	switch(modrm->opecode){
+	case 0:
+		inc_rm32(emu, modrm);
+		break;
+	default:
+		cout<<"not implemented: 0xFF /"<<(int)modrm->opecode<<endl;
+	}
+	
+	delete modrm;
+}
+
 void call_rel32(Emulator *emu){
 	int32_t diff = emu->GetSignCode32(1);
 	emu->Push32(emu->EIP + 5);	//call命令は全体で5バイト
@@ -142,7 +180,46 @@ void leave(Emulator *emu){
 	emu->EIP++;
 }
 
+
+// defineでJなんとか関数を大量錬成する
+#define DEFINE_JX(flag, is_flag) \
+void j ## flag(Emulator *emu){ \
+	int diff = emu->is_flag() ? emu->GetSignCode8(1) : 0; \
+	emu->EIP += (diff + 2); \
+} \
+void jn ## flag(Emulator *emu){ \
+	int diff = emu->is_flag() ? 0 : emu->GetSignCode8(1); \
+	emu->EIP += (diff + 2); \
 }
+
+DEFINE_JX(c, IsCarry);
+DEFINE_JX(z, IsZero);
+DEFINE_JX(s, IsSign);
+DEFINE_JX(o, IsOverflow)
+
+#undef DEFINE_JX
+
+void cmp_r32_rm32(Emulator *emu){
+	emu->EIP++;
+	ModRM *modrm = new ModRM(emu);
+	uint32_t r32 = modrm->GetR32();
+	uint32_t rm32= modrm->GetRM32();
+	uint64_t result = (uint64_t)r32 - (uint64_t)rm32; //32bit目を観測したいから64bitとして扱う
+	emu->UpdateEflagsSub(r32, rm32, result);
+	delete modrm;
+}
+
+void jl(Emulator *emu){
+	int diff = (emu->IsSign() != emu->IsOverflow()) ? emu->GetSignCode8(1) : 0;
+	emu->EIP += (diff + 2);
+}
+
+void jle(Emulator *emu){
+	int diff = (emu->IsZero() || (emu->IsSign() != emu->IsOverflow())) ? emu->GetSignCode8(1) : 0;
+	emu->EIP += (diff + 2);
+}
+
+} // namespace instruction32
 
 
 
@@ -154,7 +231,7 @@ void InitInstructions32(void){
 	
 	func[0x01]	= add_rm32_r32;
 	
-	//func[0x3B]	= cmp_r32_rm32;
+	func[0x3B]	= cmp_r32_rm32;
 	//func[0x3C]	= cmp_al_imm8;
 	//func[0x3D]	= cmp_eax_imm32;
 	
@@ -178,24 +255,27 @@ void InitInstructions32(void){
 	
 	
 	//func[0x68]	= push_imm32;
-	//func[0x6A]	= push_imm8;
+	func[0x6A]	= push_imm8;
 	
-	//func[0x70]	= jo;
-	//func[0x71]	= jno;
-	//func[0x72]	= jc;
-	//func[0x73]	= jnc;
-	//func[0x74]	= jz;
-	//func[0x75]	= jnz;
-	//func[0x78]	= js;
-	//func[0x79]	= jl;
-	//func[0x7C]	= jle;
+	func[0x70]	= jo;
+	func[0x71]	= jno;
+	func[0x72]	= jc;
+	func[0x73]	= jnc;
+	func[0x74]	= jz;
+	func[0x75]	= jnz;
+	func[0x78]	= js;
+	func[0x79]	= jns;
+	func[0x7C]	= jl;
+	func[0x7E]	= jle;
 	
 	func[0x83]	= code_83;
-	//func[0x88]	= mov_rm8_r8;
+	func[0x88]	= mov_rm8_r8;
 	func[0x89]	= mov_rm32_r32;
 	//func[0x8A]	= mov_r8_rm8;
 	func[0x8B]	= mov_r32_rm32;
-	
+
+	func[0x90]	= nop;
+
 	for(i=0;i<8;i++){
 		func[0xB0 + i]	= mov_r8_imm8;
 	}
@@ -215,7 +295,7 @@ void InitInstructions32(void){
 	func[0xEB]	= short_jump;
 	//func[0xEC]	= in_al_dx;
 	//func[0xEE]	= out_dx_al;
-	//func[0xFF]	= code_ff;
+	func[0xFF]	= code_ff;
 }
 
 

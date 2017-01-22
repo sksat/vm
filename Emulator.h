@@ -8,10 +8,16 @@
 #define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
 #define REGISTERS_COUNT		8		//レジスタの本数(16/32bit)
 
-#define VRAM_ADDR		0xa0//0xa0000
+#define VRAM_ADDR		0xa0000
 
 #define LOW			0
 #define HIGH			1
+
+// EFLAGS
+#define CARRY_FLAG	(1)
+#define ZERO_FLAG	(1 << 6)
+#define SIGN_FLAG	(1 << 7)
+#define OVERFLOW_FLAG	(1 << 11)
 
 extern const char* registers_name16[];		//16bitレジスタの名前
 extern const char* registers_name32[];		//32bitレジスタの名前
@@ -100,6 +106,21 @@ public:				// member funcs
 	void Push32(uint32_t val);
 	uint32_t Pop32();
 
+	// EFLAGSの各フラグ取得
+	int IsCarry()	{ return (EFLAGS & CARRY_FLAG)	 != 0; }
+	int IsZero()	{ return (EFLAGS & ZERO_FLAG)	 != 0; }
+	int IsSign()	{ return (EFLAGS & SIGN_FLAG)	 != 0; }
+	int IsOverflow(){ return (EFLAGS & OVERFLOW_FLAG)!= 0; }
+
+	// EFLAGSの各フラグ設定
+	void SetCarry(int is_carry);
+	void SetZero(int is_zero);
+	void SetSign(int is_sign);
+	void SetOverflow(int is_overflow);
+
+	//関数名がキモいけどとりあえず放置
+	void UpdateEflagsSub(uint32_t v1, uint32_t v2, uint64_t result);
+
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();
 	void DumpMemory(const char *fname, uint8_t addr, uint8_t size);
@@ -116,5 +137,7 @@ void InitInstructions32(void);			//32bit
 
 extern instruction_func_t* instructions16[256];	//16bit命令の関数の配列
 extern instruction_func_t* instructions32[256];	//32bit
+
+//eflgas
 
 #endif //EMULATOR_H_

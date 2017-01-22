@@ -15,7 +15,7 @@ start:
 	MOV	EBX,0x01
 	MOV	ECX,SCRNY
 	CALL	func
-;	JMP	start
+	JMP	start
 	JMP	0
 func:
 	MOV	DWORD [EAX],0x0f

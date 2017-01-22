@@ -14,10 +14,10 @@
     14 00007C00 B8 000000A0                     	MOV	EAX,0xa0
     15 00007C05 BB 00000001                     	MOV	EBX,0x01
     16 00007C0A B9 000000C8                     	MOV	ECX,SCRNY
-    17 00007C0F E8 00000005                     	CALL	func
-    18 00007C14                                 ;	JMP	start
-    19 00007C14 E9 FFFF83E7                     	JMP	0
-    20 00007C19                                 func:
-    21 00007C19 C7 00 0000000F                  	MOV	DWORD [EAX],0x0f
-    22 00007C1F 01 D8                           	ADD	EAX,EBX
-    23 00007C21 C3                              	RET
+    17 00007C0F E8 00000007                     	CALL	func
+    18 00007C14 EB EA                           	JMP	start
+    19 00007C16 E9 FFFF83E5                     	JMP	0
+    20 00007C1B                                 func:
+    21 00007C1B C7 00 0000000F                  	MOV	DWORD [EAX],0x0f
+    22 00007C21 01 D8                           	ADD	EAX,EBX
+    23 00007C23 C3                              	RET

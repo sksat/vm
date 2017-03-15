@@ -70,6 +70,7 @@ try{
 	}
 
 }
+
 catch(char m){
 	glutDestroyWindow(hMainWin);
 	cout<<"destroy"<<endl;

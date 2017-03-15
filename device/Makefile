@@ -1,5 +1,5 @@
 TAR	= Device.a
-OBJS	= Device.o Display.o
+OBJS	= Device.o Display.o PIC.o
 
 CFLAGS	= -std=c++11 -g
 
@@ -18,5 +18,4 @@ $(TAR):$(OBJS)
 clean:
 	rm $(TAR)
 	rm $(OBJS)
-
 

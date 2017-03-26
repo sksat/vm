@@ -59,8 +59,6 @@ typedef union {
 #define EFLAGS	eflags.reg32
 #define IP	eip.reg16
 #define EIP	eip.reg32
-#define GDTR	gdtr.reg32
-#define IDTR	idtr.reg32
 
 //GDT,IDT関連
 //GDTR,IDTR用のレジスタ型(48bit)
@@ -93,7 +91,7 @@ public:
 	Register eflags;
 	
 	Register eip;
-	DTRegister gdtr, idtr;
+	DTRegister GDTR, IDTR;
 	
 	Register reg[REGISTERS_COUNT];
 	
@@ -147,8 +145,8 @@ public:				// member funcs
 
 	void DumpRegisters(int bit);		//各レジスタの値を標準入出力に書き込む。引数はビットモード。
 	void DumpRegisters();
-	void DumpMemory(const char *fname, uint8_t addr, uint8_t size);
-	void DumpMemory(const char *fname, uint8_t size){	DumpMemory(fname, 0x00, size);	}
+	void DumpMemory(const char *fname, uint32_t addr, uint32_t size);
+	void DumpMemory(const char *fname, uint32_t size){	DumpMemory(fname, 0x00, size);	}
 	void DumpMemory(const char *fname){	DumpMemory(fname, memory_size);	}
 };
 

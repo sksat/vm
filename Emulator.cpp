@@ -268,7 +268,7 @@ void Emulator::DumpRegisters(){
 	return;
 }
 
-void Emulator::DumpMemory(const char *fname, uint8_t addr, uint8_t size){
+void Emulator::DumpMemory(const char *fname, uint32_t addr, uint32_t size){
 	if(memory_size < addr)
 		return;
 	if(memory_size < addr+size){
@@ -277,7 +277,7 @@ void Emulator::DumpMemory(const char *fname, uint8_t addr, uint8_t size){
 	
 	FILE *fp;
 	fp = fopen(fname, "wb");
-	fwrite(memory+addr, size, 1, fp);
+	fwrite(memory+addr, sizeof(char), size, fp);
 	fclose(fp);
 }
 

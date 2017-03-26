@@ -1,3 +1,7 @@
+>LGDT,LIDT
+lgdt [esp+0x6]	: 0F01542406
+lidt [esp+0x6]	: 0F015C2406
+
 >ModRM
 
 >EFLAGS

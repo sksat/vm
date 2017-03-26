@@ -101,7 +101,9 @@ public:
 public:				// member funcs
 	Emulator();
 	~Emulator();
-	
+
+	void InitRegisters();
+
 	int GetBitMode();
 	bool IsReal(){	return !IsProtected();	}
 	bool IsProtected();

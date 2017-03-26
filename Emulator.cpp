@@ -25,6 +25,8 @@ Emulator::Emulator(){
 		cout<<"error new."<<endl;
 	}
 	
+	InitRegisters();
+	
 	InitInstructions16();
 	InitInstructions32();
 	
@@ -36,6 +38,13 @@ Emulator::~Emulator(){
 	delete[] memory;
 }
 
+//各レジスタの初期化
+void Emulator::InitRegisters(){
+	GDTR.base_addr	= 0;
+	GDTR.table_limit= 0xffff;	// GDTRの初期値はIntel*3巻2.4.1参照
+	IDTR.base_addr	= 0;
+	IDTR.table_limit= 0xffff;	// 同上2.4.3
+}
 
 int Emulator::GetBitMode(){
 	return BitMode;

@@ -63,6 +63,12 @@ typedef union {
 #define IDTR	idtr.reg32
 
 //GDT,IDT関連
+//GDTR,IDTR用のレジスタ型(48bit)
+struct DTRegister {
+	uint16_t table_limit;
+	uint32_t base_addr;
+};
+
 //GDT
 struct SEGMENT_DESCRIPTOR {
 	uint16_t limit_low, base_low;
@@ -83,11 +89,11 @@ private:
 	int BitMode;
 	int memory_size;
 public:
-	Register CR[5];		// CR0 ~ CR4 register
+	Register CR[5];		// CR0 ~ CR4 制御レジスタ
 	Register eflags;
 	
 	Register eip;
-	Register gdtr, idtr;
+	DTRegister gdtr, idtr;
 	
 	Register reg[REGISTERS_COUNT];
 	

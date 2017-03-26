@@ -59,8 +59,23 @@ typedef union {
 #define EFLAGS	eflags.reg32
 #define IP	eip.reg16
 #define EIP	eip.reg32
+#define GDTR	gdtr.reg32
+#define IDTR	idtr.reg32
 
-//セグメントレジスタ忘れてた
+//GDT,IDT関連
+//GDT
+struct SEGMENT_DESCRIPTOR {
+	uint16_t limit_low, base_low;
+	uint8_t base_mid, access_right;
+	uint8_t limit_high, base_high;
+};
+
+//IDT
+struct GATE_DESCRIPTOR {
+	uint16_t offset_low, selector;
+	uint8_t dw_count, access_right;
+	uint16_t offset_high;
+};
 
 //エミュレータクラス
 class Emulator{
@@ -72,6 +87,7 @@ public:
 	Register eflags;
 	
 	Register eip;
+	Register gdtr, idtr;
 	
 	Register reg[REGISTERS_COUNT];
 	

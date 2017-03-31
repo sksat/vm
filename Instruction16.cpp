@@ -4,6 +4,10 @@ instruction_func_t* instructions16[256];
 
 namespace instruction16{
 
+void add_rm16_r16(Emulator *emu){
+	
+}
+
 void test(Emulator *emu){
 	
 }
@@ -24,9 +28,6 @@ void InitInstructions16(){
 	
 //	func[0x00] = test;
 	
-	for(i=0;i<8;i++){
-		func[0xB8 + i] = mov_r8_imm8;
-	}
 }
 
 

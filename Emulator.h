@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define DEFAULT_BIT_MODE	32//16		//デフォルトの起動時のビット。本来は16。
+#define DEFAULT_BIT_MODE	16		//デフォルトの起動時のビット。本来は16。
 #define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
 #define REGISTERS_COUNT		8		//レジスタの本数(16/32bit)
 
@@ -60,6 +60,14 @@ typedef union {
 #define IP	eip.reg16
 #define EIP	eip.reg32
 
+//segment registers
+#define CS	SR[0].reg16
+#define DS	SR[1].reg16
+#define SS	SR[2].reg16
+#define ES	SR[3].reg16
+#define FS	SR[4].reg16
+#define GS	SR[5].reg16
+
 //GDT,IDT関連
 //GDTR,IDTR用のレジスタ型(48bit)
 struct DTRegister {
@@ -89,6 +97,7 @@ private:
 public:
 	Register CR[5];		// CR0 ~ CR4 制御レジスタ
 	Register eflags;
+	Register SR[6];		// segment register
 	
 	Register eip;
 	DTRegister GDTR, IDTR;

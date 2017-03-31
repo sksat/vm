@@ -12,11 +12,6 @@ void test(Emulator *emu){
 	
 }
 
-void mov_r8_imm8(Emulator *emu){
-	uint8_t reg = emu->GetCode8(0) - 0xB0;
-	emu->reg[reg].reg16 = emu->GetCode8(1);
-	emu->EIP += 2;
-}
 
 }
 

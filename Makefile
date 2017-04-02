@@ -2,7 +2,7 @@ TAR	= vm
 BIN	= test04.bin
 BINSRC	= test04.c
 
-OBJS	= main.o Emulator.o Instruction16.o Instruction32.o ModRM.o
+OBJS	= main.o Emulator.o Instruction16.o Instruction32.o ModRM.o Memory.o
 OBJS	+= GUI.o
 OBJS	+= sksatlib/sksatlib.a
 OBJS	+= device/Device.a

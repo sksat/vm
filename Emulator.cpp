@@ -24,6 +24,8 @@ Emulator::Emulator(){
 	if(memory == NULL){
 		cout<<"error new."<<endl;
 	}
+	// use Memory class
+	_memory = new Memory(memory_size);
 	
 	InitRegisters();
 	
@@ -67,6 +69,9 @@ void Emulator::LoadBinary(const char* fname, uint32_t addr, int size){
 	}
 	fread(memory + addr, 1, size, fp);
 	fclose(fp);
+
+	// use Memory class
+	_memory->LoadBinary(fname, addr, size);
 }
 
 uint8_t Emulator::GetCode8(int index){
@@ -279,6 +284,9 @@ void Emulator::DumpMemory(const char *fname, uint32_t addr, uint32_t size){
 	fp = fopen(fname, "wb");
 	fwrite(memory+addr, sizeof(char), size, fp);
 	fclose(fp);
+
+	// use Memory class
+	_memory->Dump("tmp/memdump.bin", addr, size);
 }
 
 

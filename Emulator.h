@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include "Memory.h"
 
 #define DEFAULT_BIT_MODE	16		//デフォルトの起動時のビット。本来は16。
 #define DEFAULT_MEMORY_SIZE	(1024 * 1024)	//デフォルトのメモリサイズ。1MB
@@ -105,6 +106,7 @@ public:
 	Register reg[REGISTERS_COUNT];
 	
 	uint8_t *memory;
+	Memory *_memory;
 public:				// member funcs
 	Emulator();
 	~Emulator();

@@ -85,7 +85,7 @@ int main(int argc, char **argv){
 //	emu->ESP = 0xffff;
 //	emu->DumpRegisters(32);
 	//emulation
-	while(true){
+	while(!emu->IsHalt()){
 		int bit		= emu->GetBitMode();
 		uint8_t code	= emu->GetCode8(0);
 		instruction_func_t* func;

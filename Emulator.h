@@ -11,6 +11,8 @@
 
 #define VRAM_ADDR		0xa0000
 
+#define TRUE			1
+#define FALSE			0
 #define LOW			0
 #define HIGH			1
 
@@ -18,7 +20,11 @@
 #define CARRY_FLAG	(1)
 #define ZERO_FLAG	(1 << 6)
 #define SIGN_FLAG	(1 << 7)
+#define TRAP_FLAG	(1 << 8)
+#define INTE_FLAG	(1 << 9) // IF
+#define DIRECT_FLAG	(1 << 10)
 #define OVERFLOW_FLAG	(1 << 11)
+#define VINT_FLAG	(1 << 19) // VIF
 
 extern const char* registers_name16[];		//16bitレジスタの名前
 extern const char* registers_name32[];		//32bitレジスタの名前
@@ -93,6 +99,7 @@ struct GATE_DESCRIPTOR {
 //エミュレータクラス
 class Emulator{
 private:
+	bool halt_flg;
 	int BitMode;
 	int memory_size;
 public:
@@ -116,6 +123,10 @@ public:				// member funcs
 	int GetBitMode();
 	bool IsReal(){	return !IsProtected();	}
 	bool IsProtected();
+
+	bool IsHalt(){ return halt_flg; }
+	void SetHalt(bool flg){ halt_flg=flg; }
+
 	size_t GetMemSize(){	return memory_size;	}
 	
 	void LoadBinary(const char* fname, uint32_t addr, int size);	//バイナリファイルを読み込んでメモリの指定番地に指定サイズだけ転送する

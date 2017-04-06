@@ -21,6 +21,53 @@ void add_rm32_r32(Emulator *emu){
 	modrm.SetRM32(rm32 + r32);
 }
 
+void cli(Emulator *emu){
+	// 保護モード仮想割り込みが無効
+	emu->EFLAGS &= ~INTE_FLAG;
+	// 保護モード仮想割り込みが有効
+//	emu->EFLAGS &= ~VINT_FLAG;
+}
+
+void sti(Emulator *emu){ // IA32_arch_Dev_Man_Vol2B_i.pdf p244
+	if(emu->IsReal()){
+		emu->EFLAGS |= INTE_FLAG;
+	}else{ // protect mode or virtual-8086 mode
+		cout<<"プロテクトモード(もしくは仮想8086モード)のSTIは未実装です"<<endl;
+		if(emu->IsProtected()){
+/*
+			if(IOPL >= CPL){
+				emu->EFLAGS |= INTE_FLAG;
+			}else{
+				if(IOPL < CPL) && CPL==3 && VIP==0){
+					
+				}else{
+					GP(0);
+				}
+			}
+*/
+		}else{ // v8086
+/*
+			if(IOPL == 3){
+				emu->EFLAGS |= INTE_FLAG;
+			}else{
+				if(IOPL<3 && VIP==0 && VME ==1){
+					emu->EFLAGS |= VINT_FLAG;
+				}else{
+					GP(0); // Trap to virtual-8086 monitor
+				}
+			}
+*/
+		}
+	}
+}
+
+void hlt(Emulator *emu){
+	if(!emu->IsReal()){  // protect or v8086
+		// if(特権レベル!=0) GP(0)
+	}
+	emu->SetHalt(TRUE);
+}
+
 void mov_rm8_r8(Emulator *emu){
 	emu->EIP++;
 	ModRM modrm(emu);
@@ -295,6 +342,9 @@ void InitInstructions32(void){
 	func[0xEB]	= short_jump;
 	//func[0xEC]	= in_al_dx;
 	//func[0xEE]	= out_dx_al;
+	func[0xFA]	= cli;
+	func[0xFB]	= sti;
+	func[0xF4]	= hlt;
 	func[0xFF]	= code_ff;
 }
 
